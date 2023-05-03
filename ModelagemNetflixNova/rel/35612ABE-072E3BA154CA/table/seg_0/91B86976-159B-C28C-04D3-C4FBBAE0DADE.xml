@@ -1,0 +1,83 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="91B86976-159B-C28C-04D3-C4FBBAE0DADE" name="shows_casting">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<comment><![CDATA[Tabela advinda de um relacionameto muitos para muitos]]></comment>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>34A9D183-3155-8AE4-9BB2-E82679EAFF18</importedID>
+<ordsAlias>show_casting</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="sca_cas_id" id="28DF1603-F1AA-74E9-7655-36F46E012F28">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[chave extrangeira advinda de casting ]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>A9BE1ACF-6A94-C844-DA0C-5F89EC3DA5D0</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8A94F0DE-9B95-E5BF-87D0-73371FA19E8A" referredColumn="3C345F36-C9BB-C751-38CF-7E372C8C969E"/>
+</associations>
+</Column>
+<Column name="sca_sho_id" id="F8D8210D-6745-3B60-6418-FD4637532EFF">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[chave extrangeira advinda de shows ]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>8094A10A-6D9E-057C-EE1E-760DD8C2877D</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="68F65BFB-9342-09C8-4EE8-EA6C740109C6" referredColumn="9249F0DF-9A60-E2D7-036E-9310160B889E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="203FE0DD-F42A-28DD-E60C-BCB6730E4296" name="PK_sca">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>E7893B98-BBF3-3A0C-E416-E93E30AA8A16</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="28DF1603-F1AA-74E9-7655-36F46E012F28"/>
+<colUsage columnID="F8D8210D-6745-3B60-6418-FD4637532EFF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E0CA686B-3323-FBC8-3C49-D9468DE365B7" name="FK_sca_cas">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="28DF1603-F1AA-74E9-7655-36F46E012F28"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="25B869AA-564F-C4E6-4338-8047764102B6" name="FK_sca_sho">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8D8210D-6745-3B60-6418-FD4637532EFF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

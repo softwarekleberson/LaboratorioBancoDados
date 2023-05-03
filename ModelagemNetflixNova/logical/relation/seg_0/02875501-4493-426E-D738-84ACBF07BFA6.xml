@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Shows_Casting" directorySegmentName="seg_0" id="02875501-4493-426E-D738-84ACBF07BFA6">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:06:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>14D5B27A-08E1-C596-F6B7-FDD36190E336</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>64556622-BD49-4669-B992-4E2118C65DFA</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

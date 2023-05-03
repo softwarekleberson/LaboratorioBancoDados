@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="8A558882-350F-B7F6-F85E-4DBC4ED65056" name="type">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>1985B81A-B812-08DF-4AA9-CF87340A2256</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="tpe_id" id="130FA246-DF71-079B-69F0-8CAB92EAED32">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>4445B4D0-805C-B904-19C3-A6D87C05D6B0</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tpe_type" id="BCC27DA0-A8FC-3EA6-8658-F2C023806574">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>5BA742B9-E930-E5E4-E37B-F8CC4D9FD801</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>65DFB3DE-2F22-97EB-A62C-193265C2BE6C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="9A6592DC-EBE3-C2DD-502D-14018F881FC7" name="pk tpe">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>D675EF97-77F1-237B-72D7-E8483B69AEA0</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>130FA246-DF71-079B-69F0-8CAB92EAED32</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E361B7B4-456C-03E6-690B-C8A8BD0E9691" name="countries">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<comment><![CDATA[Tabela de paises, em que forão filmados as series ou filmes]]></comment>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>787E37FC-62B0-E203-CBA3-FE0C13446498</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="con_id" id="0D9FAA77-8B03-DB85-99C8-38612F558C0C">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Chave primaria da tabela countries]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>B5AA801F-14E9-3D9E-3FAB-85C56A31FBA3</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="con_name" id="D39B6477-2464-6E42-BD0E-C2FFA06C7618">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Nome dos paises  em que forão filmados as series ou filmes]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>EECC9709-65D9-174D-6A1B-CEB4AB1CB26F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>740F99DF-2520-32E7-0B96-57B2F383CB48</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="29A2FF65-B177-60A7-1FFA-81331E28DF35" name="PK_con">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>2F71B033-4A87-FFA2-44BA-8B3601B1B146</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0D9FAA77-8B03-DB85-99C8-38612F558C0C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

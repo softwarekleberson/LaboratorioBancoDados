@@ -1,0 +1,517 @@
+-----------------------------------------------------------------------------
+				-- Sequence --
+-----------------------------------------------------------------------------
+
+--DDL FOR SEQUENCE SEQ_CAS
+-------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_CAS" MINVALUE 1 MAXVALUE 9999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+
+--DDL FOR SEQUENCE SEQ_COUTRIES --
+---------------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_COU" MINVALUE 1 MAXVALUE 999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+
+--DDL FOR SEQUENCE SEQ_DIRECTORS--
+--------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_DIR" MINVALUE 1 MAXVALUE 99999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+--DDL FOR SEQUENCE SEQ_LISTED_IN--
+--------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_LIN" MINVALUE 1 MAXVALUE 9999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+
+--DDL FOR SEQUENCE SEQ_RATING--
+-------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_RAT" MINVALUE 1 MAXVALUE 999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+
+--DDL FOR SEQUENCE SEQ_SHOWS --
+-------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_SHO" MINVALUE 1 MAXVALUE 9999999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+
+-- DDL FOR SEQUENCE SEQ_TYPE --
+-----------------------------------------------------
+CREATE SEQUENCE "APP"."SEQ_TPE" MINVALUE 1 MAXVALUE 9999999999999999999999999 INCREMENT BY 1 START WITH
+1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
+
+COMMIT;
+
+
+
+-----------------------------------------------------------------------------------------------
+					--Tabelas-- 
+-----------------------------------------------------------------------------------------------
+
+CREATE TABLE "APP"."casting" (
+    "cas_id"   INTEGER,
+    "cas_name" VARCHAR2(250)
+);
+
+
+
+CREATE TABLE "APP"."countries" (
+    "con_id"   INTEGER,
+    "con_name" VARCHAR2(255)
+);
+
+
+
+CREATE TABLE "APP"."directors" (
+    "dir_id"   INTEGER,
+    "dir_name" VARCHAR2(500)
+);
+
+
+
+CREATE TABLE "APP"."listed_in" (
+    "lin_id"   INTEGER,
+    "lin_name" VARCHAR2(250)
+);
+
+
+
+CREATE TABLE "APP"."rating" (
+    "rat_id"             INTEGER,
+    "rat_classification" VARCHAR2(10)
+);
+
+
+CREATE TABLE "APP"."shows" (
+    "sho_id"           INTEGER,
+    "sho_title"        VARCHAR2(255),
+    "sho_release_year" INTEGER,
+    "sho_date_added"   VARCHAR2(10),
+    "sho_duration"     VARCHAR2(50),
+    "sho_description"  CLOB,
+    "sho_tpe_id"       INTEGER NOT NULL,
+    "sho_rat_id"       INTEGER NOT NULL
+);
+
+
+CREATE TABLE "APP"."shows_casting" (
+    "sca_cas_id" INTEGER,
+    "sca_sho_id" INTEGER
+);
+
+
+CREATE TABLE "APP"."shows_countries" (
+    "sco_con_id" INTEGER,
+    "sco_sho_id" INTEGER
+);
+
+
+CREATE TABLE "APP"."shows_directors" (
+    "sdr_sho_id" INTEGER,
+    "sdr_dir_id" INTEGER
+);
+
+
+CREATE TABLE "APP"."shows_listed_in" (
+    "sli_lin_id" INTEGER,
+    "sli_sho_id" INTEGER
+);
+
+
+CREATE TABLE "APP"."type" (
+    "tpe_id"   INTEGER,
+    "tpe_type" VARCHAR2(10)
+);
+
+-----------------------------------------------------------------------------------------------
+					--Trigger Sequence--
+-----------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------
+-- TRIGGER CASTING --
+--------------------------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_CAS"
+BEFORE INSERT ON "casting"
+FOR EACH ROW
+BEGIN
+	:NEW."cas_id" := SEQ_CAS.nextval;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_CAS" ENABLE;
+
+---------------------------------------------
+--TRIGGER Coutring--
+---------------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_CON"
+BEFORE INSERT ON "countries"
+FOR EACH ROW
+BEGIN
+	:NEW."con_id"  := SEQ_COU.nextval;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_CON" ENABLE;
+
+---------------------------------------------
+-- TRIGGER DIRECTORS --
+---------------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_DIR"
+BEFORE INSERT ON "directors"
+FOR EACH ROW
+BEGIN
+    :NEW."dir_id" := SEQ_DIR.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_DIR" ENABLE;
+
+-----------------------------------------
+-- TRIGGER listed_in--
+-----------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_LIN"
+BEFORE INSERT ON "listed_in"
+FOR EACH ROW
+BEGIN
+    :NEW."lin_id" := SEQ_LIN.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_LIN" ENABLE;
+------------------------------------------
+-- TRIGGER RATING --
+-----------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_RAT"
+BEFORE INSERT ON "rating"
+FOR EACH ROW
+BEGIN
+    :NEW."rat_id" := SEQ_RAT.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_RAT" ENABLE;
+
+--------------------------------------------
+-- TRIGGER SHOWS --
+--------------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_SHO"
+BEFORE INSERT ON "shows"
+FOR EACH ROW
+BEGIN
+    :NEW."sho_id" := SEQ_SHO.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_SHO" ENABLE;
+
+---------------------------------------------
+-- TRIGGER type --
+--------------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_TPE"
+BEFORE INSERT ON "type"
+FOR EACH ROW
+BEGIN
+    :NEW."tpe_id" := SEQ_TPE.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "APP"."TG_SEQ_TPE" ENABLE;
+
+
+-----------------------------------------------------------------------------------------------
+					-- Procedore -- 
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------
+					-- Constract --
+----------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------
+					-- Constract Type --
+----------------------------------------------------------------------------------------------
+
+ALTER TABLE "APP"."type" ADD CONSTRAINT "pk_tpe" PRIMARY KEY ("tpe_id" ) using index enable;
+
+ALTER TABLE "APP"."type" ADD CONSTRAINT "CK_TPE_01" CHECK("tpe_type" IS NOT NULL) enable;
+
+
+
+----------------------------------------------------------------------------------------------
+					-- Constract Shows --
+----------------------------------------------------------------------------------------------
+
+
+ALTER TABLE "APP"."shows" ADD CONSTRAINT "pk_sho" PRIMARY KEY ("sho_id") using index enable;
+
+ALTER TABLE "APP"."shows" ADD CONSTRAINT "CK_SHO_01" CHECK("sho_title" IS NOT NULL) enable;
+ALTER TABLE "APP"."shows" ADD CONSTRAINT "CK_SHO_02" CHECK("sho_date_added" IS NOT NULL) enable;
+ALTER TABLE "APP"."shows" ADD CONSTRAINT "CK_SHO_03" CHECK("sho_release_year" IS NOT NULL) enable;
+ALTER TABLE "APP"."shows" ADD CONSTRAINT "CK_SHO_04" CHECK("sho_duration" IS NOT NULL) enable;
+ALTER TABLE "APP"."shows" ADD CONSTRAINT "CK_SHO_05" CHECK("sho_description" IS NOT NULL) enable;
+
+
+
+----------------------------------------------------------------------------------------------
+					-- Constract Rating -- 
+----------------------------------------------------------------------------------------------
+ALTER TABLE "APP"."rating" ADD CONSTRAINT "pk_rat" PRIMARY KEY ("rat_id" ) using index enable;
+
+ALTER TABLE "APP"."rating" ADD CONSTRAINT "CK_RAT_01" CHECK("rat_classification" IS NOT NULL) enable;
+
+
+--------------------------------------------------------------------------------------------------
+						-- Constraint Listed_in --
+--------------------------------------------------------------------------------------------------
+
+ALTER TABLE "APP"."listed_in" ADD CONSTRAINT "pk_lin" PRIMARY KEY ("lin_id")  USING INDEX  ENABLE;
+
+ALTER TABLE "APP"."listed_in" ADD CONSTRAINT "CK_LIN_01" CHECK("lin_name" IS NOT NULL) enable;
+
+
+--------------------------------------------------------------------------------------------------
+						-- Constraint Casting
+--------------------------------------------------------------------------------------------------
+
+ALTER TABLE "APP"."casting" ADD CONSTRAINT "pk_cas" PRIMARY KEY ("cas_id")  USING INDEX  ENABLE;
+
+
+----------------------------------------------------------------------------------------------------
+						-- Constraint countries
+----------------------------------------------------------------------------------------------------
+
+ALTER TABLE "APP"."countries" ADD CONSTRAINT "pk_con" PRIMARY KEY ("con_id")  USING INDEX  ENABLE;
+
+
+----------------------------------------------------------------------------------------------------
+						-- Constraint Directors --
+----------------------------------------------------------------------------------------------------
+
+ALTER TABLE "APP"."directors" ADD CONSTRAINT "pk_dir" PRIMARY KEY ("dir_id")  USING INDEX  ENABLE;
+
+
+-----------------------------------------------------------------------------------------------------
+						-- Constraint Sho_Casting--
+-----------------------------------------------------------------------------------------------------
+
+
+ALTER TABLE "APP"."shows_casting" ADD CONSTRAINT "pk_sca" PRIMARY KEY ("sca_cas_id",
+                                                              "sca_sho_id")  USING INDEX  ENABLE;
+
+
+-----------------------------------------------------------------------------------------------------
+						-- sho_countries --
+-----------------------------------------------------------------------------------------------------
+
+
+ALTER TABLE "APP"."shows_countries" ADD CONSTRAINT "pk_sco" PRIMARY KEY ("sco_con_id",
+                                                                "sco_sho_id")  USING INDEX  ENABLE;
+
+
+------------------------------------------------------------------------------------------------------
+						--  shows_directors --
+------------------------------------------------------------------------------------------------------
+
+
+ALTER TABLE "APP"."shows_directors" ADD CONSTRAINT "pk_sdi" PRIMARY KEY ("sdr_sho_id",
+                                                                "sdr_dir_id" )  USING INDEX  ENABLE;
+
+--------------------------------------------------------------------------------------------------------
+						-- shows_listed_in --
+--------------------------------------------------------------------------------------------------------
+
+
+
+ALTER TABLE "APP"."shows_listed_in" ADD CONSTRAINT "pk_sli" PRIMARY KEY ("sli_lin_id",
+                                                                "sli_sho_id")  USING INDEX  ENABLE;
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+					-- Constraint Chave Extrangeiras --
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ALTER TABLE "APP"."shows_casting"
+    ADD CONSTRAINT "fk_sca_cas" FOREIGN KEY ("sca_cas_id")
+        REFERENCES "APP"."casting"("cas_id") ENABLE;
+
+ALTER TABLE "APP"."shows_casting"
+    ADD CONSTRAINT "fk_sca_sho" FOREIGN KEY ("sca_sho_id")
+        REFERENCES "APP"."shows" ("sho_id") ENABLE;
+
+ALTER TABLE "APP"."shows_countries"
+    ADD CONSTRAINT "fk_sco_con" FOREIGN KEY ("sco_con_id")
+        REFERENCES "APP"."countries" ("con_id") ENABLE;
+
+ALTER TABLE "APP"."shows_countries"
+    ADD CONSTRAINT "fk_sco_sho" FOREIGN KEY ("sco_sho_id")
+        REFERENCES "APP"."shows" ("sho_id") ENABLE;
+
+ALTER TABLE "APP"."shows_directors"
+    ADD CONSTRAINT fk_sdr_dir FOREIGN KEY ("sdr_dir_id")
+        REFERENCES "APP"."directors" ("dir_id") ENABLE;
+
+ALTER TABLE "APP"."shows_directors"
+    ADD CONSTRAINT fk_sdr_sho FOREIGN KEY ("sdr_sho_id")
+        REFERENCES "APP"."shows" ("sho_id") ENABLE;
+
+ALTER TABLE "APP"."shows"
+    ADD CONSTRAINT fk_sho_rat FOREIGN KEY ("sho_rat_id")
+        REFERENCES "APP"."rating" ("rat_id") ENABLE;
+
+ALTER TABLE "APP"."shows"
+    ADD CONSTRAINT "fk_sho_tpe" FOREIGN KEY ("sho_tpe_id")
+        REFERENCES "APP"."type" ("tpe_id") ENABLE;
+
+ALTER TABLE "APP"."shows_listed_in"
+    ADD CONSTRAINT "fk_sli_lin" FOREIGN KEY ("sli_lin_id")
+        REFERENCES "APP"."listed_in" ("lin_id") ENABLE;
+
+ALTER TABLE "APP"."shows_listed_in"
+    ADD CONSTRAINT "fk_sli_sho" FOREIGN KEY ("sli_sho_id")
+        REFERENCES "APP"."shows" ("sho_id") ENABLE;
+
+------------------------------------------------------------------------------------------------
+						Comentarios Das Colunas
+------------------------------------------------------------------------------------------------
+
+COMMENT ON COLUMN APP."casting"."cas_id" IS
+    'Chave primaria de casting';
+
+COMMENT ON COLUMN APP."casting"."cas_name" IS
+    'Nome dos atores que participaram de filmes ou series';
+
+COMMENT ON COLUMN APP."countries"."con_id" IS
+    'Chave primaria da tabela countries';
+
+COMMENT ON COLUMN APP."countries"."con_name" IS
+    'Nome dos paises  em que forão filmados as series ou filmes';
+
+COMMENT ON COLUMN APP."directors"."dir_id" IS
+    'chave primaria da tabela directors';
+
+COMMENT ON COLUMN APP."directors"."dir_name" IS
+    'nome dos diretores';
+
+COMMENT ON COLUMN APP."listed_in"."lin_id" IS
+    'Chave primaria da tabela listed_in';
+
+COMMENT ON COLUMN APP."listed_in"."lin_name" IS
+    'Nome da categoria do filme ou série da tabela listed_in';
+
+COMMENT ON COLUMN APP."rating"."rat_id" IS
+    'Chave primaria da tabela directors';
+
+COMMENT ON COLUMN APP."rating"."rat_classification" IS
+    'Classificação do filme ou série, faixa de indicação';
+
+COMMENT ON COLUMN APP."shows"."sho_id" IS
+    'Chave primaria da tabela shows';
+
+COMMENT ON COLUMN APP."shows"."sho_title" IS
+    'Titulo de serie ou filmes';
+
+COMMENT ON COLUMN APP."shows"."sho_release_year" IS
+    'Ano em que foi filmado serie ou filme';
+
+COMMENT ON COLUMN APP."shows"."sho_date_added" IS
+    'Ano de lançamento da serie ou filme';
+
+COMMENT ON COLUMN APP."shows"."sho_duration" IS
+    'Duraçaõ da serie ou filme, temporadas ou horas de exibição';
+
+COMMENT ON COLUMN APP."shows"."sho_description" IS
+    'Descrição da serie ou filme';
+
+COMMENT ON COLUMN APP."shows"."sho_tpe_id" IS
+    'chave extrangeira advinda de type';
+
+COMMENT ON COLUMN APP."shows"."sho_rat_id" IS
+    'Chave extrangeira advinda de rating';
+
+COMMENT ON COLUMN APP."shows_casting"."sca_cas_id" IS
+    'chave extrangeira advinda de casting ';
+
+COMMENT ON COLUMN APP."shows_casting"."sca_sho_id" IS
+    'chave extrangeira advinda de shows ';
+
+COMMENT ON COLUMN APP."shows_countries"."sco_con_id" IS
+    'chave extrangeira advinda de countries';
+
+COMMENT ON COLUMN APP."shows_countries"."sco_sho_id" IS
+    'chave extrangeira advinda da tabela shows';
+
+COMMENT ON COLUMN APP."shows_directors"."sdr_sho_id" IS
+    'chave extrangeira advinda da tabela shows';
+
+COMMENT ON COLUMN APP."shows_directors"."sdr_dir_id" IS
+    'chave extrangeira advinda da tabela directors';
+
+COMMENT ON COLUMN APP."shows_listed_in"."sli_lin_id" IS
+    'chave extrangeira advinda de Listed_in';
+
+COMMENT ON COLUMN APP."shows_listed_in"."sli_sho_id" IS
+    'chave extrangeira advinda de shows';
+
+COMMENT ON COLUMN APP."type"."tpe_id" IS
+    'Chave primaria da tabela type';
+
+COMMENT ON COLUMN APP."type"."tpe_type" IS
+    'Coluna que demonstra se é um filme ou série da tabela type';
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+										Comentarios das Tabela 
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Tabela que relaciona atores e atrizes com os shows em que eles aparecem.
+COMMENT ON TABLE "casting" IS 'Tabela que relaciona atores e atrizes com os shows em que eles aparecem';
+
+-- Tabela que armazena informações sobre os países onde os shows são produzidos ou exibidos.
+COMMENT ON TABLE "countries" IS 'Tabela que armazena informações sobre os países onde os shows são produzidos';
+
+-- Tabela que armazena informações sobre os diretores dos shows.
+COMMENT ON TABLE "directors" IS 'Tabela que armazena informações sobre os diretores dos shows';
+
+-- Tabela que armazena informações sobre as categorias em que os shows são classificados (por exemplo, drama, comédia, suspense).
+COMMENT ON TABLE "listed_in" IS 'Tabela que armazena informações sobre as categorias em que os shows são classificados (por exemplo, drama, comédia, suspense)';
+
+-- Tabela que armazena informações sobre a classificação dos shows (por exemplo, PG-13, R, TV-MA).
+COMMENT ON TABLE "rating" IS 'Tabela que armazena informações sobre a classificação dos shows (por exemplo, PG-13, R, TV-MA)';
+
+-- Tabela que armazena informações gerais sobre os shows (filmes e séries).
+COMMENT ON TABLE "shows" IS 'Tabela que armazena informações gerais sobre os shows (filmes e séries)';
+
+-- Tabela de relacionamento que liga shows a seus atores e atrizes.
+COMMENT ON TABLE "shows_casting" IS 'Tabela de relacionamento que liga shows a seus atores e atrizes';
+
+-- Tabela de relacionamento que liga shows aos países em que são produzidos ou exibidos.
+COMMENT ON TABLE "shows_countries" IS 'Tabela de relacionamento que liga shows aos países em que são produzidos';
+
+-- Tabela de relacionamento que liga shows aos seus diretores.
+COMMENT ON TABLE "shows_directors" IS 'Tabela de relacionamento que liga shows aos seus diretores';
+
+-- Tabela de relacionamento que liga shows às suas categorias.
+COMMENT ON TABLE "shows_listed_in" IS 'Tabela de relacionamento que liga shows às suas categorias';
+
+-- Tabela que armazena informações sobre o tipo de show (por exemplo, filme ou série de TV).
+COMMENT ON TABLE "type" IS 'Tabela que armazena informações sobre o tipo de show (por exemplo, filme ou série de TV)';
+
+

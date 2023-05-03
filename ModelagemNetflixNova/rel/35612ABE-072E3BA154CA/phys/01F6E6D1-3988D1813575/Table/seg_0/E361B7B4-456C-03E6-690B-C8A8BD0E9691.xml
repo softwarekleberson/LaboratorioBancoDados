@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="countries" directorySegmentName="seg_0" id="E361B7B4-456C-03E6-690B-C8A8BD0E9691">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="con_id" id="0D9FAA77-8B03-DB85-99C8-38612F558C0C">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="con_name" id="D39B6477-2464-6E42-BD0E-C2FFA06C7618">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="countries_PK" id="29A2FF65-B177-60A7-1FFA-81331E28DF35">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

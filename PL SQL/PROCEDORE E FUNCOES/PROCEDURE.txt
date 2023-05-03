@@ -1,0 +1,21 @@
+-- Primeira procedure
+
+CREATE OR REPLACE PROCEDURE incluir_segmercado3
+(p_ID IN SEGMERCADO.ID%type, p_DESCRICAO IN SEGMERCADO.DESCRICAO%type)
+IS
+BEGIN
+   INSERT INTO SEGMERCADO (ID, DESCRICAO) VALUES (p_ID, UPPER(p_DESCRICAO));
+   COMMIT;
+END;
+
+
+EXECUTANDO A PROCEDURE
+---------------------------------------------------
+
+EXECUTE incluir_segmercado(4,'Farmaceuticos');
+
+---------------------------------------------------
+
+BEGIN
+   incluir_segmercado(4,'Farmaceuticos');
+END;

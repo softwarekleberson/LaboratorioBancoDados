@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="1D5FB5A6-EBC9-812E-A338-402CAFDE65FD" mainViewID="A62D3A3B-5007-3197-0F9B-6042963E262C">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:49:22 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

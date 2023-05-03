@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="35612ABE-B641-D0A4-2BDE-072E3BA154CA" mainViewID="B39D4E37-1E84-424B-13B9-D6F7ADC9EF19">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:49:27 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>01F6E6D1-21D0-CFBD-ABDD-3988D1813575</selectedRDBMSSite>
+<importDDLFileStamps>
+<importDDLFileStamp class="oracle.dbtools.crest.imports.DDLFileStamp">
+<fileName>forcabaperuca.ddl</fileName>
+<pathName>C:\Users\User\OneDrive\Área de Trabalho</pathName>
+<dbType>17</dbType>
+</importDDLFileStamp>
+</importDDLFileStamps>
+</relationalModel>

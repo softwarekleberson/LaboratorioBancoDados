@@ -1,0 +1,165 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1EB3EAAE-B75A-E6FE-E77C-CDB63B432A1C" name="shows">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<comment><![CDATA[Tabela de shows (filmes ou series)]]></comment>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>458CB703-9BFC-D41E-ED7B-665EEB606378</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="sho_id" id="9249F0DF-9A60-E2D7-036E-9310160B889E">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Chave primaria da tabela shows]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>B75E5DA5-62B1-DF49-B8BE-5FEE72113688</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sho_title" id="59E45B52-6E6F-92D3-11EF-0D734EA5E81F">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Titulo de serie ou filmes]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>04C549AE-3AD0-1FFF-78EC-0DEFC2DE4809</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>740F99DF-2520-32E7-0B96-57B2F383CB48</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sho_release_year" id="AD18829A-1AAE-4C4B-0FA5-DBD481BA5A4A">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ano em que foi filmado serie ou filme]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>F69630B3-DA9B-B743-9DAE-E27C1C5A7CAF</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sho_date_added" id="5A1B712F-E065-A081-DAAE-762F05AF82F5">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ano de lançamento da serie ou filme]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>D5FE3261-8DBC-ACCA-A72D-611F2CA28ADF</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sho_duration" id="BAE26D04-3AAF-2904-FAD8-DBD50D86A95D">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Duraçaõ da serie ou filme, temporadas ou horas de exibição]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>96A26A77-11F6-8A0B-7E4B-84A939C2CCB5</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>C0C6F2A5-03BB-6D10-0AE7-9A81DE06F080</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sho_description" id="A90E5A24-DA3E-5C64-CFD1-1AB5BE9166AB">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Descrição da serie ou filme]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>4063E250-64BB-D32D-4E92-D9172ECD4537</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<domain>39877AB6-17AB-5600-BF72-2BEF7C03AE3C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sho_tpe_id" id="F8F290D7-5B1B-1EC5-2085-86B765F9E1A4">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[chave extrangeira advinda de type]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>82393AFA-F045-19F8-F32D-D2EDB6A8BC6A</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="75021A82-6F2E-4AA5-08EA-C57B37BFD011" referredColumn="4445B4D0-805C-B904-19C3-A6D87C05D6B0"/>
+</associations>
+</Column>
+<Column name="sho_rat_id" id="69C486DF-A7D4-84CA-8595-4E8B73B53599">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<commentInRDBMS><![CDATA[Chave extrangeira advinda de rating]]></commentInRDBMS>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>E5F3156A-6B4D-19F7-C47A-6B94F1922424</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E3AB55C3-D788-DADF-80A0-99BCB2BFE07A" referredColumn="B030EF93-278B-B941-D349-304AC32D5FB6"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4BE4E1AE-E1EA-4128-3A2A-ED7A7F954EDF" name="PK_sho">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>0B1C5600-77DD-901F-AEC3-F9DC5B0E0DE8</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9249F0DF-9A60-E2D7-036E-9310160B889E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5753E89B-66E5-EF60-7554-C55E87D4EAD1" name="FK_sho_rat">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="69C486DF-A7D4-84CA-8595-4E8B73B53599"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="771A706B-AB4E-30F9-C146-1F1CA9800DEE" name="FK_sho_tpe">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F8F290D7-5B1B-1EC5-2085-86B765F9E1A4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

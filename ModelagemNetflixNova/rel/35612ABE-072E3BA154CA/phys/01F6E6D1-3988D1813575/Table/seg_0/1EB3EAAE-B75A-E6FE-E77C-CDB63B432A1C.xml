@@ -1,0 +1,88 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev20c class="oracle.dbtools.crest.model.design.storage.oracle.v20c.TableProxyOraclev20c" name="shows" directorySegmentName="seg_0" id="1EB3EAAE-B75A-E6FE-E77C-CDB63B432A1C">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="sho_type" id="2CE07AB6-3956-319C-4100-C728ACA9C75E">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho__show_id" id="51E3DBA4-C1AD-C390-DD5E-2EE6B31A6464">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_title" id="59E45B52-6E6F-92D3-11EF-0D734EA5E81F">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_date_added" id="5A1B712F-E065-A081-DAAE-762F05AF82F5">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_rat_id" id="69C486DF-A7D4-84CA-8595-4E8B73B53599">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_id" id="9249F0DF-9A60-E2D7-036E-9310160B889E">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_description" id="A90E5A24-DA3E-5C64-CFD1-1AB5BE9166AB">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_release_year" id="AD18829A-1AAE-4C4B-0FA5-DBD481BA5A4A">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_duration" id="BAE26D04-3AAF-2904-FAD8-DBD50D86A95D">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_sho_rating" id="D6BE7AD6-8FDD-8559-D870-98784E4EF0AF">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="sho_tpe_id" id="F8F290D7-5B1B-1EC5-2085-86B765F9E1A4">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="shows_rating_FK" id="5753E89B-66E5-EF60-7554-C55E87D4EAD1">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="shows_type_FK" id="771A706B-AB4E-30F9-C146-1F1CA9800DEE">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="shows_PK" id="4BE4E1AE-E1EA-4128-3A2A-ED7A7F954EDF">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev20c>

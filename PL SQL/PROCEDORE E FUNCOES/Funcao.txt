@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION obter_descricao_segmercado
+-- Parametro da Função, pegando o tamanho exato  e o tipo do parametro
+(p_ID IN SEGMERCADO.ID%type)
+
+-- Tipo de retorno, se será varchar2, int date. Eu estou pegando o tipo de retorno dele
+RETURN SEGMERCADO.DESCRICAO%type
+
+IS
+
+-- Variavel Usada
+v_DESCRICAO SEGMERCADO.DESCRICAO%type;
+
+BEGIN
+    SELECT DESCRICAO INTO v_DESCRICAO FROM SEGMERCADO WHERE ID = p_ID;
+    --O que será retornado
+    RETURN v_DESCRICAO;
+END;
+
+
+
+-- CHAMADA DA FUNÇÃO
+SELECT ID, obter_descricao_segmercado(ID), DESCRICAO, LOWER(DESCRICAO) FROM SEGMERCADO;

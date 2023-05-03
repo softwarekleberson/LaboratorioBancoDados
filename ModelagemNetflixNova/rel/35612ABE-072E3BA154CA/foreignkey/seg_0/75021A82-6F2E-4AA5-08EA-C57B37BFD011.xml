@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="75021A82-6F2E-4AA5-08EA-C57B37BFD011" containerWithKeyObject="1EB3EAAE-B75A-E6FE-E77C-CDB63B432A1C" localFKIndex="771A706B-AB4E-30F9-C146-1F1CA9800DEE" name="FK_sho_tpe">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>E68E8B08-F362-592B-4C2E-C0669BAA8CC7</importedID>
+<referredTableLongName>type</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>1985B81A-B812-08DF-4AA9-CF87340A2256</referredTableID>
+<keyObject>D675EF97-77F1-237B-72D7-E8483B69AEA0</keyObject>
+<referredKeyID>D675EF97-77F1-237B-72D7-E8483B69AEA0</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>tpe_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,34 @@
+CREATE OR REPLACE FUNCTION categoria_cliente
+(p_FATURAMENTO IN CLIENTE.FATURAMENTO_PREVISTO%type)
+
+RETURN CLIENTE.CATEGORIA%type
+IS
+    v_CATEGORIA CLIENTE.CATEGORIA%type;
+BEGIN
+    
+    IF p_FATURAMENTO <= 10000 THEN
+       v_CATEGORIA := 'PEQUENO';
+       
+    ELSIF p_FATURAMENTO <= 50000 THEN
+       v_CATEGORIA := 'MEDIO';
+       
+     ELSIF p_FATURAMENTO <= 100000 THEN
+       v_CATEGORIA := 'MEDIO GRANDE';
+       
+     ELSE 
+       v_CATEGORIA := 'GRANDE';
+       
+     END IF;
+    
+    RETURN v_categoria;
+END;
+
+-------------------------------------------------------------------------------
+					CHAMADA DA FUNÇOES 
+-------------------------------------------------------------------------------
+
+VARIABLE g_CATEGORIA VARCHAR2(100);
+EXECUTE :g_CATEGORIA:=categoria_cliente(120000);
+PRINT g_CATEGORIA;
+
+-------------------------------------------------------------------------------

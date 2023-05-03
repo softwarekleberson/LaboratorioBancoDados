@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="fk_shows_rating" directorySegmentName="seg_0" id="A1E7C652-1878-8041-2FBF-F347FEDAA823">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>E3AB55C3-D788-DADF-80A0-99BCB2BFE07A</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<sourcePk>7C1DB66F-5B6B-4049-AC68-3C8E2D316467</sourcePk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>4E99C725-5151-5360-BAC0-07CF595D2B2B</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>64556622-BD49-4669-B992-4E2118C65DFA</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

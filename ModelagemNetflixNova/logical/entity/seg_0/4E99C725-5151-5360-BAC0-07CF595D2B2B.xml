@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4E99C725-5151-5360-BAC0-07CF595D2B2B" name="rating">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>282CA547-AB91-D759-6505-AF9AFE8238B3</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="rat_id" id="63265680-442A-1DF9-3402-9E8CF7A7C709">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>B030EF93-278B-B941-D349-304AC32D5FB6</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>6285470C-7B93-913D-53C3-B21F8F4F4EEE</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rat_classification" id="73D8CB52-C2D2-4F9E-41E0-7F3F86F3AE1C">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>D75E93AC-B9AA-4A18-DA0E-26C82352D003</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>65DFB3DE-2F22-97EB-A62C-193265C2BE6C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7C1DB66F-5B6B-4049-AC68-3C8E2D316467" name="pk rat">
+<createdBy>User</createdBy>
+<createdTime>2023-03-19 00:02:46 UTC</createdTime>
+<generatorID>724647F0-9E2C-6584-3E89-F651A047103D</generatorID>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="35612ABE-B641-D0A4-2BDE-072E3BA154CA" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>63265680-442A-1DF9-3402-9E8CF7A7C709</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

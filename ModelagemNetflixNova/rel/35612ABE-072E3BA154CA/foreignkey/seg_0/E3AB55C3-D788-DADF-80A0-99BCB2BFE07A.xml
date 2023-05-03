@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E3AB55C3-D788-DADF-80A0-99BCB2BFE07A" containerWithKeyObject="1EB3EAAE-B75A-E6FE-E77C-CDB63B432A1C" localFKIndex="5753E89B-66E5-EF60-7554-C55E87D4EAD1" name="FK_sho_rat">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>353560DE-F069-3D42-15CF-E1DBF4F1346A</importedID>
+<referredTableLongName>rating</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>282CA547-AB91-D759-6505-AF9AFE8238B3</referredTableID>
+<keyObject>724647F0-9E2C-6584-3E89-F651A047103D</keyObject>
+<referredKeyID>724647F0-9E2C-6584-3E89-F651A047103D</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>rat_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

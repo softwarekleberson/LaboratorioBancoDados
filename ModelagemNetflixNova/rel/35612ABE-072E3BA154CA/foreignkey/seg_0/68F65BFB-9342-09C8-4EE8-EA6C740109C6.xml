@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="68F65BFB-9342-09C8-4EE8-EA6C740109C6" containerWithKeyObject="91B86976-159B-C28C-04D3-C4FBBAE0DADE" localFKIndex="25B869AA-564F-C4E6-4338-8047764102B6" name="FK_sca_sho">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>A59C23C7-691D-7DBB-598A-B8B8D07FB2AD</importedID>
+<referredTableLongName>shows</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>1EB3EAAE-B75A-E6FE-E77C-CDB63B432A1C</referredTableID>
+<keyObject>4BE4E1AE-E1EA-4128-3A2A-ED7A7F954EDF</keyObject>
+<referredKeyID>4BE4E1AE-E1EA-4128-3A2A-ED7A7F954EDF</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>sho_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="ModelagemNetflixNova" id="D392FB17-1E10-25D7-5666-F3496D58F998" version="3.5">
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:49:22 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>D392FB17-1E10-25D7-5666-F3496D58F998</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="314DB21C-94CD-865C-70C0-35251CC3A662">
+<designStoragePath>C:\forcabaperuca</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
+</OSDM_Design>

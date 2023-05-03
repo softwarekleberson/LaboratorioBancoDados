@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="7B0C810A-1A0C-8063-4D13-1DB3149973C6" containerWithKeyObject="12AC0FE7-7E37-1E63-36B5-13F8C73A4CF5" localFKIndex="41A1A085-F463-F372-2010-9D1C2E1AFAB8" name="FK_sdr_dir">
+<sourceDDLFile>forcabaperuca.ddl</sourceDDLFile>
+<createdBy>User</createdBy>
+<createdTime>2023-03-18 23:53:13 UTC</createdTime>
+<ownerDesignName>ModelagemNetflixNova</ownerDesignName>
+<importedID>E36CDC2A-39B0-5B0B-E860-C3F06DA1C024</importedID>
+<referredTableLongName>directors</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>04DFBDC4-E537-4779-AADB-D9427364DB00</referredTableID>
+<keyObject>928695B3-F037-6D60-FACF-699CD5458288</keyObject>
+<referredKeyID>928695B3-F037-6D60-FACF-699CD5458288</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>dir_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

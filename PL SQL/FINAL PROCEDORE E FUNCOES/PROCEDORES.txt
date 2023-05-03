@@ -1,0 +1,32 @@
+CREATE OR REPLACE PROCEDURE incluir_cliente(
+
+p_ID CLIENTE.ID%type,
+p_RAZAO CLIENTE.RAZAO_SOCIAL%type,
+p_CNPJ CLIENTE.CNPJ%type,
+p_SEGMERCADO CLIENTE.SEGMERCADO_ID%type,
+p_FATURAMENTO CLIENTE.FATURAMENTO_PREVISTO%type
+)
+
+IS
+
+v_CATEGORIA CLIENTE.CATEGORIA%type;
+
+BEGIN
+    
+    -- chamada da função, passando o p_FATURAMENTO, faturamento a uma função
+    -- essa função irá dizer qual categoria essa empresa pertence
+
+    v_categoria := categoria_cliente(p_FATURAMENTO );
+
+    INSERT INTO CLIENTE
+    VALUES
+    (p_ID, p_RAZAO, p_CNPJ, p_SEGMERCADO, SYSDATE , p_FATURAMENTO, v_CATEGORIA);
+
+    COMMIT;
+END;
+
+------------------------------------------------------------------------------------
+
+EXECUTE  incluir_cliente(3, 'SUPERMERCADO GURUJA', 19852, 1, 90000);
+
+------------------------------------------------------------------------------------
