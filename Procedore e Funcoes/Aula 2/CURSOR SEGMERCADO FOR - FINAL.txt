@@ -1,0 +1,16 @@
+DECLARE
+    v_SEGMERCADO CLIENTE.SEGMERCADO_ID%type := 1;
+
+    //Faço um select e jogo tudo dentro de Cursor (cur_CLIENTE)
+
+    CURSOR  cur_CLIENTE IS SELECT ID FROM CLIENTE;
+BEGIN
+
+    //Faço o laço de cur_CLIENTE e jogo dentro de linha_cur_CLIENTE
+
+    FOR linha_cur_CLIENTE IN cur_CLIENTE LOOP
+	
+	// chamo a minha variavel curso e pego o id dela
+        ATUALIZAR_SEGMERCADO(linha_cur_CLIENTE.ID,v_SEGMERCADO);
+    END LOOP;
+END;

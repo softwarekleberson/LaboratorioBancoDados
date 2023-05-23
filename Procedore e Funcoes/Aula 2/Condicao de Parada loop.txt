@@ -1,0 +1,19 @@
+DECLARE 
+   v_SEGMERCADO CLIENTE.SGMERCADO_ID%type := 3;
+     v_ID CLIENTE.ID%type :=2;
+     v_NUMCLI INTEGER;
+BEGIN
+   SELECT COUNT(*) INTO v_NUMCLI FROM CLIENTE;
+  LOOP
+       IF v_ID <= 9 THEN
+            ATUALIZAR_SEGMERCADO (v_ID,v_SEGMERCADO);
+            v_ID := v_ID + 1;
+         ELSE
+            EXIT;
+         END IF;
+
+
+    END LOOP;
+END;
+
+SELECT * FROM CLIENTE;

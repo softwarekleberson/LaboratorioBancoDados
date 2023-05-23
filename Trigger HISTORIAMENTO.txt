@@ -1,0 +1,102 @@
+
+-------------------------------------------------------------------------
+			TRIGGER HISTORIAMENTO CASTING
+-------------------------------------------------------------------------
+
+CREATE TRIGGER "TG_H_CAS"
+AFTER UPDATE OR DELETE ON "casting"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_CASTING VALUES(:old."cas_id", :old."cas_name", sysdate);
+END;
+ 
+/
+ALTER TRIGGER "TG_H_CAS" ENABLE;
+
+------------------------------------------------------------------------
+			TRIGGER HISTORIAMENTO COUNTRIES
+------------------------------------------------------------------------
+
+CREATE TRIGGER "TG_H_CON"
+AFTER UPDATE OR DELETE ON "countries"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_COUNTRIES VALUES(:old."con_id", :old."con_name", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_CON" ENABLE;
+
+
+---------------------------------------------------------------------------
+			TRIGGER HISTORIAMENTO DIRECTORS
+---------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_DIR"
+AFTER UPDATE OR DELETE ON "directors"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_DIRECTORS VALUES(:old."dir_id", :old."dir_name", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_DIR" ENABLE;
+
+
+-------------------------------------------------------------------------
+			TRIGGER HISTORIAMENTO LISTED_IN
+-------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_LIN"
+AFTER UPDATE OR DELETE ON "listed_in"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_LISTED_IN VALUES(:old."lin_id", :old."lin_name", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_DIR" ENABLE;
+
+
+--------------------------------------------------------------------------
+			TRIGGER HISTORIAMENTO RATING
+--------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_RAT"
+AFTER UPDATE OR DELETE ON "rating"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_RATING VALUES(:old."rat_id", :old."rat_classification", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_RAT" ENABLE;
+
+
+-------------------------------------------------------------------------------
+			TRIGGER HISTORIAMENTO SHOWS
+-------------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_SHO"
+AFTER UPDATE OR DELETE ON "shows"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_SHOWS VALUES(:old."sho_id", :old."sho_title", :old."sho_release_year", :old."sho_date_added",
+                                :old."sho_duration", :old."sho_description", :old."sho_tpe_id", :old."sho_rat_id", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_SHO" ENABLE;
+
+--
+
+CREATE TRIGGER "TG_H_TPE"
+AFTER UPDATE OR DELETE ON "type"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_TYPE VALUES(:old."tpe_id", :old."tpe_type", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_TPE" ENABLE;
+
+
+

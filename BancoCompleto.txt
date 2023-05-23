@@ -52,47 +52,47 @@ COMMIT;
 
 CREATE TABLE "APP"."casting" (
     "cas_id"   INTEGER,
-    "cas_name" VARCHAR2(250)
+    "cas_name" VARCHAR2(600)
 );
 
 
 
 CREATE TABLE "APP"."countries" (
     "con_id"   INTEGER,
-    "con_name" VARCHAR2(255)
+    "con_name" VARCHAR2(600)
 );
 
 
 
 CREATE TABLE "APP"."directors" (
     "dir_id"   INTEGER,
-    "dir_name" VARCHAR2(500)
+    "dir_name" VARCHAR2(600)
 );
 
 
 
 CREATE TABLE "APP"."listed_in" (
     "lin_id"   INTEGER,
-    "lin_name" VARCHAR2(250)
+    "lin_name" VARCHAR2(600)
 );
 
 
 
 CREATE TABLE "APP"."rating" (
     "rat_id"             INTEGER,
-    "rat_classification" VARCHAR2(10)
+    "rat_classification" VARCHAR2(60)
 );
 
 
 CREATE TABLE "APP"."shows" (
     "sho_id"           INTEGER,
-    "sho_title"        VARCHAR2(255),
+    "sho_title"        VARCHAR2(600),
     "sho_release_year" INTEGER,
-    "sho_date_added"   VARCHAR2(10),
-    "sho_duration"     VARCHAR2(50),
+    "sho_date_added"   VARCHAR2(600),
+    "sho_duration"     VARCHAR2(600),
     "sho_description"  CLOB,
-    "sho_tpe_id"       INTEGER NOT NULL,
-    "sho_rat_id"       INTEGER NOT NULL
+    "sho_tpe_id"       INTEGER,
+    "sho_rat_id"       INTEGER
 );
 
 
@@ -226,14 +226,6 @@ END;
 
 /
 ALTER TRIGGER "APP"."TG_SEQ_TPE" ENABLE;
-
-
------------------------------------------------------------------------------------------------
-					-- Procedore -- 
------------------------------------------------------------------------------------------------
-
-
-
 
 
 
@@ -513,5 +505,615 @@ COMMENT ON TABLE "shows_listed_in" IS 'Tabela de relacionamento que liga shows �
 
 -- Tabela que armazena informações sobre o tipo de show (por exemplo, filme ou série de TV).
 COMMENT ON TABLE "type" IS 'Tabela que armazena informações sobre o tipo de show (por exemplo, filme ou série de TV)';
+
+
+--------------------------------------------------------------------------------------------------------------
+						--PROCEDURES INSERÇÃO DE DADOS
+--------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+-- INSERIR CASTING --
+-----------------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_CASTING
+(
+    p_cas_name "casting"."cas_name"%type
+) 
+
+IS
+    v_id integer;
+    v_count integer;
+
+BEGIN
+
+SELECT count(*) into v_count from "casting" where "cas_name" = p_cas_name;
+if v_count = 0 then
+
+    INSERT INTO "casting"
+    VALUES
+    (0, p_cas_name);
+    
+end if;
+
+SELECT "cas_id" into v_id from "casting" WHERE "casting"."cas_name" = p_cas_name;
+UPDATE metflix set cast = v_id where cast = p_cas_name;
+
+COMMIT;
+END;
+
+
+
+----------------------------------------------------------------------
+-- INSERIR COUNTRIES --
+----------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_COUNTRIES
+(
+p_con_name "countries"."con_name"%type
+)
+
+IS
+
+    v_id integer;
+    v_count integer;
+
+BEGIN
+
+SELECT count(*) into v_count from "countries" where "con_name" = p_con_name;
+if v_count = 0 then 
+
+    INSERT INTO "countries"
+    VALUES
+    (0, p_con_name);
+
+end if;
+
+SELECT "con_id" into v_id from "countries" where "countries"."con_name" = p_con_name;
+UPDATE metflix set country = v_id where country = p_con_name;
+
+COMMIT;
+END;
+
+
+
+----------------------------------------------------------------------------
+-- INSERIR DIRECTORS --
+----------------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_DIRECTOR
+(
+p_dir_name "directors"."dir_name"%type
+)
+
+IS
+    
+     v_id integer;
+     v_count integer;
+
+BEGIN
+
+SELECT count(*) into v_count from "directors" where "dir_name" = p_dir_name;
+if v_count = 0 then
+
+    INSERT INTO "directors"
+    VALUES
+    (0, p_dir_name);
+
+end if;
+
+SELECT "dir_name" into v_id from "directors" where "directors"."dir_name" = p_dir_name;
+UPDATE metflix set director = v_id where director = p_dir_name;
+
+COMMIT;
+END;
+
+
+---------------------------------------------------------------------------
+-- INSERIR LISTED --
+---------------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_LISTED
+(
+p_lin_name "listed_in"."lin_name"%type
+)
+
+IS
+    
+    v_id integer;
+    v_count integer;
+
+BEGIN
+
+select count(*) into v_count from "listed_in" where "lin_name" = p_lin_name;
+if v_count = 0 then
+
+    INSERT INTO "listed_in"
+    VALUES
+    (0, p_lin_name);
+end if;
+
+    SELECT "lin_id" into v_id from "listed_in" where "listed_in"."lin_name" = p_lin_name;
+    UPDATE metflix SET listed_in = v_id WHERE listed_in = p_lin_name;
+
+COMMIT;
+END;
+
+
+
+---------------------------------------------------------------------------
+-- INSERIR RATING --
+---------------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_RATING
+(
+p_rat_classification "rating"."rat_classification"%type
+)
+
+IS
+BEGIN
+    INSERT INTO "rating"
+    VALUES
+    (0,p_rat_classification);
+
+COMMIT;
+END;
+
+
+
+-----------------------------------------------------------------------------
+-- INSERIR SHOWS --
+-----------------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_SHOWS
+(
+p_sho_title "shows"."sho_title"%type,
+p_sho_release_year "shows"."sho_release_year"%type,
+p_sho_date_added "shows"."sho_date_added"%type,
+p_sho_duration "shows"."sho_duration"%type,
+p_sho_description "shows"."sho_description"%type,
+p_sho_type "shows"."sho_tpe_id"%type,
+p_sho_rating "shows"."sho_rat_id"%type
+)
+
+IS
+
+    v_id integer;
+    v_count integer;
+
+
+BEGIN
+
+select count(*) into v_count from "shows" where "sho_title" = p_sho_title;
+
+if v_count = 0 then
+
+    INSERT INTO "shows"
+    VALUES
+    (0,p_sho_title, p_sho_release_year,p_sho_date_added,p_sho_duration, p_sho_description,p_sho_type,p_sho_rating);
+
+end if;
+
+    SELECT "sho_id" into v_id from "shows" where "shows"."sho_title" = p_sho_title;
+    UPDATE metflix set title = v_id where title = p_sho_title;
+
+COMMIT;
+END;
+
+
+
+-----------------------------------------------------------------------------------
+-- INSERIR SHOWS_CASTING --
+-----------------------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_SHOWS_CASTING (
+
+  p_sca_cas_id "shows_casting"."sca_cas_id"%TYPE,
+  p_sca_sho_id "shows_casting"."sca_sho_id"%TYPE
+  
+)
+IS
+  
+BEGIN
+   
+    INSERT INTO "shows_casting"
+    VALUES (p_sca_cas_id, p_sca_sho_id);
+    COMMIT;
+END;
+
+
+----------------------------------------------------------------
+-- INSERIR SHOWS_COUTRIES --
+----------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_SHOWS_COUNTRIES (
+
+  p_sco_con_id "shows_countries"."sco_con_id"%TYPE,
+  p_sco_sho_id "shows_countries"."sco_sho_id"%TYPE
+  
+)
+IS
+  
+BEGIN
+
+    INSERT INTO "shows_countries"
+    VALUES (p_sco_con_id, p_sco_sho_id);
+    COMMIT;
+END;
+
+
+
+-- INSERIR SHOWS_DIRECTORS
+
+create or replace PROCEDURE INSERIR_SHOWS_DIRECTORS (
+
+  p_sdr_sho_id "shows_directors"."sdr_sho_id"%TYPE,
+  p_sdr_dir_id "shows_directors"."sdr_dir_id"%TYPE
+  
+)
+IS
+  
+BEGIN
+
+    INSERT INTO "shows_directors"
+    VALUES (p_sdr_sho_id, p_sdr_dir_id);
+    COMMIT;
+END;
+
+
+
+--------------------------------------------------------------------
+-- INSERIR TYPES --
+--------------------------------------------------------------------
+
+create or replace PROCEDURE INSERIR_TYPES
+(
+p_tpe_type "type"."tpe_type"%type
+)
+
+IS
+BEGIN
+    INSERT INTO "type"
+    VALUES
+    (0,p_tpe_type);
+COMMIT;
+END;
+
+
+
+-----------------------------------------------------------------------------------------------
+					-- PL SQL (CHAMADA DAS PROCEDURES) -- 
+-----------------------------------------------------------------------------------------------
+
+-- CASTING
+DECLARE
+    CURSOR cur_CASTING IS SELECT CAST FROM  METFLIX;
+BEGIN
+    FOR linha_cur_CASTING IN cur_CASTING LOOP
+        INSERIR_CASTING(linha_cur_CASTING.CAST);
+    END LOOP;
+END;
+
+
+--TYPE
+DECLARE 
+    CURSOR cur_Types IS SELECT DISTINCT TYPE FROM METFLIX;
+BEGIN
+    FOR linha_cur_types IN cur_Types LOOP
+        INSERIR_TYPES(linha_cur_types.TYPE);
+    END LOOP;
+END;
+
+
+
+--RATING
+DECLARE
+    CURSOR cur_RATINGS IS SELECT DISTINCT RATING FROM METFLIX;
+BEGIN
+    FOR linha_cur_ratings IN cur_RATINGS LOOP
+        INSERIR_RATING(linha_cur_ratings.RATING);
+    END LOOP;
+END;
+
+
+
+--LISTED-IN
+DECLARE
+    CURSOR cur_LISTEDS IS SELECT LISTED_IN FROM METFLIX;
+BEGIN
+    FOR linha_cur_LISTEDS IN cur_LISTEDS LOOP
+        INSERIR_LISTED(linha_cur_LISTEDS.LISTED_IN);
+    END LOOP;
+END;
+
+
+
+--DIRECTORS
+DECLARE
+    CURSOR cur_DIRECTORS IS SELECT DIRECTOR FROM METFLIX;
+BEGIN
+    FOR linha_cur_DIRECTORS IN cur_DIRECTORS LOOP
+        INSERIR_DIRECTOR(linha_cur_DIRECTORS.DIRECTOR);
+    END LOOP;
+END;
+
+
+-- COUNTRIES
+DECLARE
+    CURSOR cur_COUNTRIES IS SELECT COUNTRY FROM METFLIX;
+BEGIN
+    FOR linha_cur_COUNTRIES IN cur_COUNTRIES LOOP
+        INSERIR_COUNTRIES(linha_cur_COUNTRIES.COUNTRY);
+    END LOOP;
+END;
+
+
+-- SHOWS
+DECLARE
+    CURSOR cur_SHOWS IS SELECT TITLE, RELEASE_YEAR, DATE_ADDED, DURATION, DESCRIPTION, TYPE, RATING FROM METFLIX;
+BEGIN
+    FOR linha_cur_shows IN cur_SHOWS LOOP
+        INSERIR_SHOWS(linha_cur_shows.TITLE, linha_cur_shows.RELEASE_YEAR,
+                      linha_cur_shows.DATE_ADDED, linha_cur_shows.DURATION,
+                      linha_cur_shows.DESCRIPTION,
+                      linha_cur_shows.TYPE,
+                      linha_cur_shows.RATING);
+    END LOOP;
+END;
+
+
+-- Update na TABELA METFLIX, ALTERANDO A COLUNA TYPE. 
+-- NESSA ATUALIZAÇÃO O VALOR DA COLUNA É SUBSTITUIDO PELO SEU ID NA TABELA TYPE, COLUNA TPE_ID
+
+UPDATE metflix
+SET type = (
+  SELECT "tpe_id"
+  FROM "type"
+  WHERE metflix.type = "type"."tpe_type"
+);
+
+-- UPDATE NA TABELA METFLIX, ALTERANDO A COLUNA RATING.
+-- NESSA ATUALZAÇÃO O VALOR DA COLUNA É SUBSTITUIDO PELO SEU ID NA TABELA RATING, COLUNA RAT_ID
+
+UPDATE metflix
+SET rating = (
+    SELECT "rat_id"
+    FROM "rating"
+    WHERE metflix.rating = "rating"."rat_classification"
+);
+
+
+-- SHOWS_CASTING
+DECLARE
+    CURSOR cur_SHOWS_CASTING IS SELECT CAST, TITLE FROM METFLIX;
+BEGIN
+    FOR linha_cur IN cur_SHOWS_CASTING LOOP
+        INSERIR_SHOWS_CASTING(linha_cur.CAST, linha_cur.TITLE);
+    END LOOP;
+END;
+
+-- SHOWS_COUNTRIES
+DECLARE
+    CURSOR cur_SHOWS_COUTRIES IS SELECT TITLE, COUNTRY FROM METFLIX;
+BEGIN
+    FOR linha_cur IN cur_SHOWS_COUTRIES LOOP
+        INSERIR_SHOWS_COUNTRIES(linha_cur.TITLE, linha_cur.COUNTRY);
+    END LOOP;
+END;
+
+
+--SHOWS_DIRECTORS
+DECLARE 
+    CURSOR cur_SHOWS_DIRECTORS IS SELECT TITLE, DIRECTOR FROM METFLIX;
+BEGIN
+    FOR linha_cur IN cur_SHOWS_DIRECTORS LOOP
+        INSERIR_SHOWS_DIRECTORS(linha_cur.TITLE, linha_cur.DIRECTOR);
+    END LOOP;
+END;
+
+
+--SHOWS_LISTED_IN
+DECLARE
+    CURSOR cur_SHOWS_LISTED IS SELECT title, listed_in FROM METFLIX;
+BEGIN
+    FOR linha_cur IN cur_SHOWS_LISTED LOOP
+        INSERIR_SHOWS_LISTED(linha_cur.listed_in, linha_cur.title);
+    END LOOP;
+END;
+        
+ 
+
+
+------------------------------------------------------------------------------------------------------------------------
+					--HISTORIAMENTO E TRIGGER PARA UPDATE E DELETE
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+CREATE TABLE h_casting (
+    hcas_id          INTEGER NOT NULL,
+    HCAS_NAME     VARCHAR2(600),
+    HCAS_DT_HIST DATE NOT NULL
+);
+
+
+ALTER TABLE h_casting ADD CONSTRAINT hcasting_pk PRIMARY KEY ( hcas_id,
+                                                               HCAS_DT_HIST);
+
+CREATE TABLE h_countries (
+    hcon_id      INTEGER NOT NULL,
+    hcon_name    VARCHAR2(600),
+    hcon_dt_hist DATE NOT NULL
+);
+
+ALTER TABLE h_countries ADD CONSTRAINT hcountries_pk PRIMARY KEY ( hcon_id,
+                                                                   hcon_dt_hist );
+
+CREATE TABLE h_directors (
+    hdir_id      INTEGER NOT NULL,
+    hdir_name    VARCHAR2(600),
+    hdir_dt_hist DATE NOT NULL
+);
+
+
+ALTER TABLE h_directors ADD CONSTRAINT hdirectors_pk PRIMARY KEY ( hdir_id,
+                                                                   hdir_dt_hist );
+
+CREATE TABLE h_listed_in (
+    hlin_id      INTEGER NOT NULL,
+    hlin_name    VARCHAR2(600),
+    hlin_dt_hist DATE NOT NULL
+);
+
+ALTER TABLE h_listed_in ADD CONSTRAINT hlisted_in_pk PRIMARY KEY ( hlin_id,
+                                                                   hlin_dt_hist );
+
+CREATE TABLE h_rating (
+    HRAT_ID         INTEGER NOT NULL,
+    hrat_classification VARCHAR2(60),
+    HRAT_DT_HIST     DATE NOT NULL
+);
+
+
+ALTER TABLE h_rating ADD CONSTRAINT hrating_pk PRIMARY KEY ( HRAT_ID,
+                                                             HRAT_DT_HIST);
+
+CREATE TABLE h_shows (
+    hsho_id           INTEGER NOT NULL,
+    hsho_title        VARCHAR2(600),
+    hsho_release_year INTEGER,
+    hsho_date_added   VARCHAR2(600),
+    hsho_duration     VARCHAR2(600),
+    hsho_description  CLOB,
+    HSHO_TPE_ID   INTEGER NOT NULL,
+    hsho_rat_id       INTEGER NOT NULL,
+    HSHO_DT_HIST  DATE NOT NULL
+);
+
+
+ALTER TABLE h_shows ADD CONSTRAINT hshows_pk PRIMARY KEY ( hsho_id,
+                                                           HSHO_DT_HIST);
+
+CREATE TABLE h_type (
+    HTPE_ID       INTEGER NOT NULL,
+    HTPE_TYPE     VARCHAR2(10),
+    HTPE_DT_HIST  DATE NOT NULL
+);
+
+ALTER TABLE h_type ADD CONSTRAINT htype_pk PRIMARY KEY (HTPE_ID,
+                                                        HTPE_DT_HIST);
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+							--TRIGGER HISTORIAMENTO
+-----------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------
+			--TRIGGER HISTORIAMENTO CASTING
+-------------------------------------------------------------------------
+
+CREATE TRIGGER "TG_H_CAS"
+AFTER UPDATE OR DELETE ON "casting"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_CASTING VALUES(:old."cas_id", :old."cas_name", sysdate);
+END;
+ 
+/
+ALTER TRIGGER "TG_H_CAS" ENABLE;
+
+------------------------------------------------------------------------
+			--TRIGGER HISTORIAMENTO COUNTRIES
+------------------------------------------------------------------------
+
+CREATE TRIGGER "TG_H_CON"
+AFTER UPDATE OR DELETE ON "countries"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_COUNTRIES VALUES(:old."con_id", :old."con_name", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_CON" ENABLE;
+
+
+---------------------------------------------------------------------------
+			--TRIGGER HISTORIAMENTO DIRECTORS
+---------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_DIR"
+AFTER UPDATE OR DELETE ON "directors"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_DIRECTORS VALUES(:old."dir_id", :old."dir_name", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_DIR" ENABLE;
+
+
+-------------------------------------------------------------------------
+			--TRIGGER HISTORIAMENTO LISTED_IN
+-------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_LIN"
+AFTER UPDATE OR DELETE ON "listed_in"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_LISTED_IN VALUES(:old."lin_id", :old."lin_name", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_DIR" ENABLE;
+
+
+--------------------------------------------------------------------------
+			--TRIGGER HISTORIAMENTO RATING
+--------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_RAT"
+AFTER UPDATE OR DELETE ON "rating"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_RATING VALUES(:old."rat_id", :old."rat_classification", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_RAT" ENABLE;
+
+
+-------------------------------------------------------------------------------
+			--TRIGGER HISTORIAMENTO SHOWS
+-------------------------------------------------------------------------------
+
+
+CREATE TRIGGER "TG_H_SHO"
+AFTER UPDATE OR DELETE ON "shows"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_SHOWS VALUES(:old."sho_id", :old."sho_title", :old."sho_release_year", :old."sho_date_added",
+                                :old."sho_duration", :old."sho_description", :old."sho_tpe_id", :old."sho_rat_id", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_SHO" ENABLE;
+
+--
+
+CREATE TRIGGER "TG_H_TPE"
+AFTER UPDATE OR DELETE ON "type"
+FOR EACH ROW
+BEGIN
+    INSERT INTO H_TYPE VALUES(:old."tpe_id", :old."tpe_type", sysdate);
+END;
+/
+ALTER TRIGGER "TG_H_TPE" ENABLE;
+
+
+
+
+
 
 

@@ -1,0 +1,21 @@
+create or replace PROCEDURE FORMATA_CNPJ_SIMPLES
+(p_CNPJ IN OUT CLIENTE.CNPJ%type)
+Is
+
+BEGIN
+    p_CNPJ := SUBSTR(p_CNPJ, 1,3) || '.' || SUBSTR(p_CNPJ, 4, 2) || '.' || SUBSTR(p_CNPJ, 6) ;
+END;
+
+
+
+------------------------------------------------------------------------------------------
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_CNPJ cliente.cnpj%type;
+BEGIN
+  v_CNPJ := '1234567890';
+  dbms_output.put_line(v_CNPJ);
+  FORMATA_CNPJ_SIMPLES(v_CNPJ);
+  dbms_output.put_line(v_CNPJ);
+END;

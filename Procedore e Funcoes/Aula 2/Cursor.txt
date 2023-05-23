@@ -1,0 +1,24 @@
+SET SERVEROUTPUT ON;
+DECLARE
+
+    v_ID CLIENTE.ID%type;
+    v_RAZAO CLIENTE.RAZAO_SOCIAL%type;
+
+    // declarar cursor
+    // faço um select pego os dois campos ID e RAZAO_SOCIAL, JOGO NO CURSOR
+    CURSOR cur_CLIENTE IS SELECT ID, RAZAO_SOCIAL FROM CLIENTE;
+BEGIN
+
+    // ABRO O CURSOR
+    OPEN cur_CLIENTE;
+    LOOP
+	
+	// PASSO LINHA A LINHA
+        FETCH cur_CLIENTE INTO v_ID, v_RAZAO;
+
+   // SAIU QUANDO NÃO ACHAR MAIS LINHA DE CLIENTE
+
+    EXIT WHEN cur_CLIENTE%NOTFOUND;
+        dbms_output.put_line('ID = ' || v_ID || ', RAZAO = ' || v_RAZAO);
+    END LOOP;
+END;

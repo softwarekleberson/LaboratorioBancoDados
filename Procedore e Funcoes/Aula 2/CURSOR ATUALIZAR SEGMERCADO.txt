@@ -1,0 +1,24 @@
+DECLARE
+    v_SEGMERCADO CLIENTE.SEGMERCADO_ID%type := 2;
+    v_ID CLIENTE.ID%type;
+
+    //Nesse cursor apenas id será armazenado
+    CURSOR cur_CLIENTE IS SELECT ID FROM CLIENTE;
+BEGIN
+
+    // Abertura do cursor
+    OPEN cur_CLIENTE;
+    LOOP
+
+	//chama o proximo ponteiro
+        FETCH cur_CLIENTE INTO v_ID;
+
+    EXIT WHEN cur_CLIENTE%NOTFOUND;
+	
+	//chama a afunção que irá atualizar o segmercado
+        ATUALIZAR_SEGMERCADO(v_ID, v_SEGMERCADO);
+    END LOOP;
+
+    // fecha o cursor
+    CLOSE cur_CLIENTE;
+END;
