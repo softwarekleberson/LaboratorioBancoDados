@@ -1,0 +1,161 @@
+-- Views ou visões: é uma consulta armazenada no banco de dados que se comporta como uma tabela
+-- View dinâmica: o banco de dados armazena APENAS o sql que busca os dados nas tabelas de origem e esses dados
+-- ficam em memória a partir do momento em que a view é consultada pela 1a vez
+-- Vantagens:
+   -- Rapidez no acesso aos dados
+   -- Reduzir a complexidade do SQL dentro da aplicação
+   -- Ela é atualizada em tempo real
+   -- Segurança
+create view visao_empregados as (
+    select
+        first_name || ' ' || last_name as Nome,
+        email as Email,
+        hire_date as Contratacao,
+        job_title as Cargo,
+        department_name as Departamento,
+        city as Cidade,
+        state_province as Estado,
+        country_name as Pais,
+        region_name
+    from
+        hr.employees
+        inner join hr.jobs using (job_id)
+        left join hr.departments using(department_id)
+        left join hr.locations using(location_id)
+        left join hr.countries using(country_id)
+        left join hr.regions using(region_id)
+);
+
+ 
+
+select * from visao_empregados;
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+create view visao_empregados as (
+    select
+        first_name || ' ' || last_name as Nome,
+        email as Email,
+        hire_date as Contratacao,
+        job_title as Cargo,
+        department_name as Departamento,
+        city as Cidade,
+        state_province as Estado,
+        country_name as Pais,
+        region_name
+    from
+        hr.employees
+        inner join hr.jobs using (job_id)
+        left join hr.departments using(department_id)
+        left join hr.locations using(location_id)
+        left join hr.countries using(country_id)
+        left join hr.regions using(region_id)
+);
+
+
+
+------------------------------------------------------------------------
+
+
+create materialized view visao_mat_empregados as (
+    select
+        first_name || ' ' || last_name as Nome,
+        email as Email,
+        hire_date as Contratacao,
+        job_title as Cargo,
+        department_name as Departamento,
+        city as Cidade,
+        state_province as Estado,
+        country_name as Pais,
+        region_name
+    from
+        hr.employees
+        inner join hr.jobs using (job_id)
+        left join hr.departments using(department_id)
+        left join hr.locations using(location_id)
+        left join hr.countries using(country_id)
+        left join hr.regions using(region_id)
+);
+
+EXECUTE DBMS_MVIEW.REFRESH('visao_mat_emp... by MARIANGELA FERREIRA FUENTES MOLINA
+
+
+
+
+
+------------------------------------------------------
+
+
+
+[8:46 PM] MARIANGELA FERREIRA FUENTES MOLINA
+
+
+
+EXECUTE DBMS_MVIEW.REFRESH('visao_mat_empregados');
+
+ 
+
+[8:46 PM] MARIANGELA FERREIRA FUENTES MOLINA
+
+grant create materialized view to app;
+
+
+
+------------------------------------
+
+
+
+
+drop materialized view Stage;
+create materialized view Stage as (
+    select 
+        e1.first_name || ' ' || e1.last_name as Nome,
+        e1.email as Email,
+        e1.salary as Salario,
+        nvl2(e1.commission_pct,'Comissionado','Não comissionado') as Comissão,
+        (
+        CASE
+            WHEN e1.salary < (select avg(salary) from hr.employees e3 where e1.department_id = e3.department_id) then 'Salário abaixo da média do departamento'
+            WHEN e1.salary = (select avg(salary) from hr.employees e3 where e1.department_id = e3.department_id) then 'Salário igual a média do departamento'
+            WHEN e1.salary > (select avg(salary) from hr.employees e3 where e1.department_id = e3.department_id) then 'Salário acima da média do departamento'
+        END
+        ) as Compara_salario,
+        (select sum(salary) from hr.employees e4 where e1.department_id = e4.department_id) +0 as Orçamento_departamento,
+        e2.first_name || ' ' || e2.last_name as Gerente,
+        round((sysdate - e1.hire_date) / 365,1) as Tempo_em_anos,
+        d1.department_name as Departamento,
+        (select count(employee_id) from hr.employees e5 where e5.department_id = e1.department_id) +0 as Quantidade_emps_Departamento,
+        j1.job_title as Cargo,
+        l1.city as Cidade,
+        c1.country_name as País,
+        r1.region_name as Região    
+    from
+        hr.Employees e1
+        left join hr.departments d1 on e1.department_id = d1.department_id
+        left join hr.jobs j1 on e1.job_id = j1.job_id
+        left join hr.locations l1 on l1.location_id = d1.location_id
+        left join hr.countries c1 on l1.country_id = c1.country_id
+        left join hr.regions r1 on r1.region_id = c1.region_id
+        left join hr.employees e2 on e2.employee_id = e1.manager_id
+);
+
+Link https://eduardolegatti.blogspot.com/20... by MARIANGELA FERREIRA FUENTES MOLINA
+
+
+
+
+
+
+-----------------------------
+
+
+
+

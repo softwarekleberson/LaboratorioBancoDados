@@ -516,6 +516,7 @@ COMMENT ON TABLE "type" IS 'Tabela que armazena informações sobre o tipo de sh
 -- INSERIR CASTING --
 -----------------------------------------------------------------------------
 
+set define off;
 create or replace PROCEDURE INSERIR_CASTING
 (
     p_cas_name "casting"."cas_name"%type
@@ -540,7 +541,9 @@ SELECT "cas_id" into v_id from "casting" WHERE "casting"."cas_name" = p_cas_name
 UPDATE metflix set cast = v_id where cast = p_cas_name;
 
 COMMIT;
-END;
+END INSERIR_CASTING;
+
+/
 
 
 
@@ -548,6 +551,7 @@ END;
 -- INSERIR COUNTRIES --
 ----------------------------------------------------------------------
 
+set define off;
 create or replace PROCEDURE INSERIR_COUNTRIES
 (
 p_con_name "countries"."con_name"%type
@@ -573,7 +577,9 @@ SELECT "con_id" into v_id from "countries" where "countries"."con_name" = p_con_
 UPDATE metflix set country = v_id where country = p_con_name;
 
 COMMIT;
-END;
+END INSERIR_COUNTRIES;
+
+/
 
 
 
@@ -581,20 +587,22 @@ END;
 -- INSERIR DIRECTORS --
 ----------------------------------------------------------------------------
 
-create or replace PROCEDURE INSERIR_DIRECTOR
+set define off;
+
+create or replace PROCEDURE INSERIR_DIRECTORS
 (
 p_dir_name "directors"."dir_name"%type
 )
 
 IS
-    
-     v_id integer;
-     v_count integer;
+
+    v_id integer;
+    v_count integer;
 
 BEGIN
 
 SELECT count(*) into v_count from "directors" where "dir_name" = p_dir_name;
-if v_count = 0 then
+if v_count = 0 then 
 
     INSERT INTO "directors"
     VALUES
@@ -602,16 +610,20 @@ if v_count = 0 then
 
 end if;
 
-SELECT "dir_name" into v_id from "directors" where "directors"."dir_name" = p_dir_name;
-UPDATE metflix set director = v_id where director = p_dir_name;
+SELECT "dir_id" into v_id from "directors" where "directors"."dir_name" = p_dir_name;
+UPDATE metflix set metflix.director = v_id where metflix.director = p_dir_name;
 
 COMMIT;
-END;
+END INSERIR_DIRECTORS;
+
+/
 
 
 ---------------------------------------------------------------------------
 -- INSERIR LISTED --
 ---------------------------------------------------------------------------
+
+set define off;
 
 create or replace PROCEDURE INSERIR_LISTED
 (
@@ -637,13 +649,17 @@ end if;
     UPDATE metflix SET listed_in = v_id WHERE listed_in = p_lin_name;
 
 COMMIT;
-END;
+END INSERIR_LISTED;
+
+/
 
 
 
 ---------------------------------------------------------------------------
 -- INSERIR RATING --
 ---------------------------------------------------------------------------
+
+set define off;
 
 create or replace PROCEDURE INSERIR_RATING
 (
@@ -657,13 +673,16 @@ BEGIN
     (0,p_rat_classification);
 
 COMMIT;
-END;
+END INSERIR_RATING;
 
+/
 
 
 -----------------------------------------------------------------------------
 -- INSERIR SHOWS --
 -----------------------------------------------------------------------------
+
+set define off;
 
 create or replace PROCEDURE INSERIR_SHOWS
 (
@@ -698,13 +717,17 @@ end if;
     UPDATE metflix set title = v_id where title = p_sho_title;
 
 COMMIT;
-END;
+END INSERIR_SHOWS;
+
+/
 
 
 
 -----------------------------------------------------------------------------------
 -- INSERIR SHOWS_CASTING --
 -----------------------------------------------------------------------------------
+
+set define off;
 
 create or replace PROCEDURE INSERIR_SHOWS_CASTING (
 
@@ -719,12 +742,15 @@ BEGIN
     INSERT INTO "shows_casting"
     VALUES (p_sca_cas_id, p_sca_sho_id);
     COMMIT;
-END;
+END INSERIR_SHOWS_CASTING;
+
+/
 
 
 ----------------------------------------------------------------
 -- INSERIR SHOWS_COUTRIES --
 ----------------------------------------------------------------
+set define off;
 
 create or replace PROCEDURE INSERIR_SHOWS_COUNTRIES (
 
@@ -739,12 +765,16 @@ BEGIN
     INSERT INTO "shows_countries"
     VALUES (p_sco_con_id, p_sco_sho_id);
     COMMIT;
-END;
+END INSERIR_SHOWS_COUNTRIES ;
+
+/
 
 
-
+----------------------------------------------------------------------------
 -- INSERIR SHOWS_DIRECTORS
+----------------------------------------------------------------------------
 
+set define off;
 create or replace PROCEDURE INSERIR_SHOWS_DIRECTORS (
 
   p_sdr_sho_id "shows_directors"."sdr_sho_id"%TYPE,
@@ -758,14 +788,40 @@ BEGIN
     INSERT INTO "shows_directors"
     VALUES (p_sdr_sho_id, p_sdr_dir_id);
     COMMIT;
-END;
+END INSERIR_SHOWS_DIRECTORS ;
+/
 
+
+
+-- INSERIR SHOWS_LISTED_IN
+
+create or replace PROCEDURE INSERIR_SHOWS_LISTED (
+
+  p_sli_lin_id "shows_listed_in"."sli_lin_id"%TYPE,
+  p_sli_sho_id "shows_listed_in"."sli_sho_id"%TYPE
+  
+)
+IS
+  
+BEGIN
+
+    INSERT INTO "shows_listed_in"
+    VALUES (p_sli_lin_id,p_sli_sho_id);
+    COMMIT;
+END  INSERIR_SHOWS_DIRECTORS;
+
+/
+
+
+
+-------------------------------------------------------------------
 
 
 --------------------------------------------------------------------
 -- INSERIR TYPES --
 --------------------------------------------------------------------
 
+set define off;
 create or replace PROCEDURE INSERIR_TYPES
 (
 p_tpe_type "type"."tpe_type"%type
@@ -777,7 +833,9 @@ BEGIN
     VALUES
     (0,p_tpe_type);
 COMMIT;
-END;
+END INSERIR_TYPES;
+
+/
 
 
 
@@ -833,7 +891,7 @@ DECLARE
     CURSOR cur_DIRECTORS IS SELECT DIRECTOR FROM METFLIX;
 BEGIN
     FOR linha_cur_DIRECTORS IN cur_DIRECTORS LOOP
-        INSERIR_DIRECTOR(linha_cur_DIRECTORS.DIRECTOR);
+        INSERIR_DIRECTORS(linha_cur_DIRECTORS.DIRECTOR);
     END LOOP;
 END;
 
@@ -862,27 +920,6 @@ BEGIN
 END;
 
 
--- Update na TABELA METFLIX, ALTERANDO A COLUNA TYPE. 
--- NESSA ATUALIZAÇÃO O VALOR DA COLUNA É SUBSTITUIDO PELO SEU ID NA TABELA TYPE, COLUNA TPE_ID
-
-UPDATE metflix
-SET type = (
-  SELECT "tpe_id"
-  FROM "type"
-  WHERE metflix.type = "type"."tpe_type"
-);
-
--- UPDATE NA TABELA METFLIX, ALTERANDO A COLUNA RATING.
--- NESSA ATUALZAÇÃO O VALOR DA COLUNA É SUBSTITUIDO PELO SEU ID NA TABELA RATING, COLUNA RAT_ID
-
-UPDATE metflix
-SET rating = (
-    SELECT "rat_id"
-    FROM "rating"
-    WHERE metflix.rating = "rating"."rat_classification"
-);
-
-
 -- SHOWS_CASTING
 DECLARE
     CURSOR cur_SHOWS_CASTING IS SELECT CAST, TITLE FROM METFLIX;
@@ -897,7 +934,7 @@ DECLARE
     CURSOR cur_SHOWS_COUTRIES IS SELECT TITLE, COUNTRY FROM METFLIX;
 BEGIN
     FOR linha_cur IN cur_SHOWS_COUTRIES LOOP
-        INSERIR_SHOWS_COUNTRIES(linha_cur.TITLE, linha_cur.COUNTRY);
+        INSERIR_SHOWS_COUNTRIES(linha_cur.COUNTRY, linha_cur.TITLE);
     END LOOP;
 END;
 
@@ -920,8 +957,87 @@ BEGIN
         INSERIR_SHOWS_LISTED(linha_cur.listed_in, linha_cur.title);
     END LOOP;
 END;
-        
- 
+   
+-------------------------------------------------------------------------------------------------------------------------
+
+					--Procedure Para A Chamada De Todas As Procedures 
+-------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE OR REPLACE PROCEDURE INSERT_METFLIX_DATA AS
+BEGIN
+  -- CASTING
+  FOR linha_cur_CASTING IN (SELECT CAST FROM METFLIX) LOOP
+    INSERIR_CASTING(linha_cur_CASTING.CAST);
+  END LOOP;
+  
+  -- TYPE
+  FOR linha_cur_types IN (SELECT DISTINCT TYPE FROM METFLIX) LOOP
+    INSERIR_TYPES(linha_cur_types.TYPE);
+  END LOOP;
+
+  -- RATING
+  FOR linha_cur_ratings IN (SELECT DISTINCT RATING FROM METFLIX) LOOP
+    INSERIR_RATING(linha_cur_ratings.RATING);
+  END LOOP;
+
+  -- LISTED-IN
+  FOR linha_cur_LISTEDS IN (SELECT LISTED_IN FROM METFLIX) LOOP
+    INSERIR_LISTED(linha_cur_LISTEDS.LISTED_IN);
+  END LOOP;
+
+  -- DIRECTORS
+  FOR linha_cur_DIRECTORS IN (SELECT DIRECTOR FROM METFLIX) LOOP
+    INSERIR_DIRECTOR(linha_cur_DIRECTORS.DIRECTOR);
+  END LOOP;
+
+  -- COUNTRIES
+  FOR linha_cur_COUNTRIES IN (SELECT COUNTRY FROM METFLIX) LOOP
+    INSERIR_COUNTRIES(linha_cur_COUNTRIES.COUNTRY);
+  END LOOP;
+
+  -- SHOWS
+  FOR linha_cur_shows IN (SELECT TITLE, RELEASE_YEAR, DATE_ADDED, DURATION, DESCRIPTION, TYPE, RATING FROM METFLIX) LOOP
+    INSERIR_SHOWS(linha_cur_shows.TITLE, linha_cur_shows.RELEASE_YEAR,
+                  linha_cur_shows.DATE_ADDED, linha_cur_shows.DURATION,
+                  linha_cur_shows.DESCRIPTION,
+                  linha_cur_shows.TYPE,
+                  linha_cur_shows.RATING);
+  END LOOP;
+
+  -- Update na TABELA METFLIX, ALTERANDO A COLUNA TYPE.
+  -- NESSA ATUALIZAÇÃO O VALOR DA COLUNA É SUBSTITUIDO PELO SEU ID NA TABELA TYPE, COLUNA TPE_ID
+  UPDATE metflix
+  SET TYPE = (SELECT "tpe_id" FROM "type" WHERE metflix.TYPE = "type"."tpe_type");
+
+  -- UPDATE NA TABELA METFLIX, ALTERANDO A COLUNA RATING.
+  -- NESSA ATUALIZAÇÃO O VALOR DA COLUNA É SUBSTITUIDO PELO SEU ID NA TABELA RATING, COLUNA RAT_ID
+  UPDATE metflix
+  SET RATING = (SELECT "rat_id" FROM "rating" WHERE metflix.RATING = "rating"."rat_classification");
+
+  -- SHOWS_CASTING
+  FOR linha_cur IN (SELECT CAST, TITLE FROM METFLIX) LOOP
+    INSERIR_SHOWS_CASTING(linha_cur.CAST, linha_cur.TITLE);
+  END LOOP;
+
+  -- SHOWS_COUNTRIES
+  FOR linha_cur IN (SELECT TITLE, COUNTRY FROM METFLIX) LOOP
+    INSERIR_SHOWS_COUNTRIES(linha_cur.TITLE, linha_cur.COUNTRY);
+  END LOOP;
+
+  -- SHOWS_DIRECTORS
+  FOR linha_cur IN (SELECT TITLE, DIRECTOR FROM METFLIX) LOOP
+    INSERIR_SHOWS_DIRECTORS(linha_cur.TITLE, linha_cur.DIRECTOR);
+  END LOOP;
+
+  -- SHOWS_LISTED_IN
+  FOR linha_cur IN (SELECT TITLE, LISTED_IN FROM METFLIX) LOOP
+    INSERIR_SHOWS_LISTED(linha_cur.LISTED_IN, linha_cur.TITLE);
+  END LOOP;
+END;
+/
+
+
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -1110,6 +1226,399 @@ BEGIN
 END;
 /
 ALTER TRIGGER "TG_H_TPE" ENABLE;
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+								-- AUDITORIA 
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+REM INSERTING into HCASTING
+SET DEFINE OFF;
+REM INSERTING into CASTING
+SET DEFINE OFF;
+
+REM INSERTING into H_COUNTRIES
+SET DEFINE OFF;
+REM INSERTING into COUNTRIES
+SET DEFINE OFF;
+
+REM INSERTING into H_DIRECTORS
+SET DEFINE OFF;
+REM INSERTING into DIRECTORS
+SET DEFINE OFF;
+
+REM INSERTING into H_LISTED_IN
+SET DEFINE OFF;
+REM INSERTING into LISTED_IN
+SET DEFINE OFF;
+
+
+REM INSERTING into H_RATING
+SET DEFINE OFF;
+REM INSERTING into RATING
+SET DEFINE OFF;
+
+
+REM INSERTING into H_SHOWS
+SET DEFINE OFF;
+REM INSERTING into SHOWS
+SET DEFINE OFF;
+
+
+REM INSERTING into H_TYPE
+SET DEFINE OFF;
+REM INSERTING into TYPE
+SET DEFINE OFF;
+
+
+--------------------------------------------------------
+--  DDL for Trigger TG_AUD_CASTING
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_CASTING" 
+AFTER UPDATE OR DELETE ON H_CASTING
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_CASTING';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HCAS_ID <> :OLD.HCAS_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HCAS_ID',:OLD.HCAS_ID,:NEW.HCAS_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HCAS_NAME <> :OLD.HCAS_NAME) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HCAS_NAME',:OLD.HCAS_NAME,:NEW.HCAS_NAME,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HCAS_DT_HIST <> :OLD.HCAS_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HCAS_DT_HIST',:OLD.HCAS_DT_HIST,:NEW.HCAS_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_CASTING" ENABLE;
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+-- DDL AUDITORIA COUNTRIES
+
+----------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+--  DDL for Trigger TG_AUD_COUNTRIES
+---------------------------------------------------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_COUNTRIES" 
+AFTER UPDATE OR DELETE ON H_COUNTRIES
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_COUNTRIES';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HCON_ID <> :OLD.HCON_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HCON_ID',:OLD.HCON_ID,:NEW.HCON_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HCON_NAME <> :OLD.HCON_NAME) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HCON_NAME',:OLD.HCON_NAME,:NEW.HCON_NAME,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HCON_DT_HIST <> :OLD.HCON_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HCON_DT_HIST',:OLD.HCON_DT_HIST,:NEW.HCON_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_COUNTRIES" ENABLE;
+
+
+
+
+-------------------------------------------------------------------------------
+-- DDL for Trigger TG_AUD_DIRECTORS
+-------------------------------------------------------------------------------
+
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_DIRECTORS" 
+AFTER UPDATE OR DELETE ON H_DIRECTORS
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_DIRECTORS';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HDIR_ID <> :OLD.HDIR_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HDIR_ID',:OLD.HDIR_ID,:NEW.HDIR_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HDIR_NAME <> :OLD.HDIR_NAME) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HDIR_NAME',:OLD.HDIR_NAME,:NEW.HDIR_NAME,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HDIR_DT_HIST <> :OLD.HDIR_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HDIR_DT_HIST',:OLD.HDIR_DT_HIST,:NEW.HDIR_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_DIRECTORS" ENABLE;
+
+
+
+
+
+-----------------------------------------------------------------------
+--TRIGGER AUDITORIA LISTED-IN --
+-----------------------------------------------------------------------
+
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_LISTED_IN" 
+AFTER UPDATE OR DELETE ON H_LISTED_IN
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_LISTED_IN';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HLIN_ID <> :OLD.HLIN_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HLIN_ID',:OLD.HLIN_ID,:NEW.HLIN_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HLIN_NAME <> :OLD.HLIN_NAME) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HLIN_NAME',:OLD.HLIN_NAME,:NEW.HLIN_NAME,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HLIN_DT_HIST <> :OLD.HLIN_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HLIN_DT_HIST',:OLD.HLIN_DT_HIST,:NEW.HLIN_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+       
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_LISTED_IN" ENABLE;
+
+
+
+
+-----------------------------------------------------------------
+-- TRIGER AUDITORIA RATING
+-----------------------------------------------------------------
+
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_RATING" 
+AFTER UPDATE OR DELETE ON H_RATING
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_RATING';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HRAT_ID <> :OLD.HRAT_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HRAT_ID',:OLD.HRAT_ID,:NEW.HRAT_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HRAT_CLASSIFICATION <> :OLD.HRAT_CLASSIFICATION) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HRAT_CLASSIFICATION',:OLD.HRAT_CLASSIFICATION,:NEW.HRAT_CLASSIFICATION,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HRAT_DT_HIST <> :OLD.HRAT_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HRAT_DT_HIST',:OLD.HRAT_DT_HIST,:NEW.HRAT_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+       
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_RATING" ENABLE;
+
+
+
+
+
+------------------------------------------------------------------------------
+-- TRIGGER AUDITORIA SHOWS
+------------------------------------------------------------------------------
+
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_SHOWS" 
+AFTER UPDATE OR DELETE ON H_SHOWS
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_SHOWS';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HSHO_ID <> :OLD.HSHO_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_ID',:OLD.HSHO_ID,:NEW.HSHO_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HSHO_TITLE <> :OLD.HSHO_TITLE) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_TITLE',:OLD.HSHO_TITLE,:NEW.HSHO_TITLE,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HSHO_RELEASE_YEAR <> :OLD.HSHO_RELEASE_YEAR) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_RELEASE_YEAR',:OLD.HSHO_RELEASE_YEAR,:NEW.HSHO_RELEASE_YEAR,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+
+        IF (:NEW.HSHO_DATE_ADDED <> :OLD.HSHO_DATE_ADDED) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_DATE_ADDED',:OLD.HSHO_DATE_ADDED,:NEW.HSHO_DATE_ADDED,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+
+        IF (:NEW.HSHO_DURATION <> :OLD.HSHO_DURATION) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_DURATION',:OLD.HSHO_DURATION,:NEW.HSHO_DURATION,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HSHO_DESCRIPTION <> :OLD.HSHO_DESCRIPTION) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_DESCRIPTION',:OLD.HSHO_DESCRIPTION,:NEW.HSHO_DESCRIPTION,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HSHO_TPE_ID <> :OLD.HSHO_TPE_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_TPE_ID',:OLD.HSHO_TPE_ID,:NEW.HSHO_TPE_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HSHO_RAT_ID <> :OLD.HSHO_RAT_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_RAT_ID',:OLD.HSHO_RAT_ID,:NEW.HSHO_RAT_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+
+         IF (:NEW.HSHO_DT_HIST <> :OLD.HSHO_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HSHO_DT_HIST',:OLD.HSHO_DT_HIST,:NEW.HSHO_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_SHOWS" ENABLE;
+
+
+
+
+-----------------------------------------------------------------
+-- TRIGER AUDITORIA TYPE
+-----------------------------------------------------------------
+
+CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_TYPE" 
+AFTER UPDATE OR DELETE ON H_TYPE
+FOR EACH ROW
+DECLARE
+    V_USU_BD VARCHAR(30);
+    V_USU_SO VARCHAR(255) := SYS_CONTEXT('USERENV','OS_USER');
+    V_TP_OPERACAO CHAR(1);
+    V_ROWID VARCHAR(20);
+    V_TABELA VARCHAR(30) := 'H_TYPE';
+BEGIN
+    SELECT USER INTO V_USU_BD FROM DUAL;
+    V_ROWID := :OLD.ROWID;
+    IF DELETING THEN
+        V_TP_OPERACAO := 'D';
+        AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,NULL,NULL,NULL,V_USU_BD,V_USU_SO,SYSDATE);
+    ELSE
+
+        V_TP_OPERACAO := 'U';
+        IF (:NEW.HTPE_ID <> :OLD.HTPE_ID) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HTPE_ID',:OLD.HTPE_ID,:NEW.HTPE_ID,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HTPE_TYPE <> :OLD.HTPE_TYPE) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HTPE_TYPE',:OLD.HTPE_TYPE,:NEW.HTPE_TYPE,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+
+        IF (:NEW.HTPE_DT_HIST <> :OLD.HTPE_DT_HIST) THEN
+            AUDITORIA.PROC_AUDITORIA(V_TABELA,V_ROWID,V_TP_OPERACAO,'HTPE_DT_HIST',:OLD.HTPE_DT_HIST,:NEW.HTPE_DT_HIST,V_USU_BD,V_USU_SO,SYSDATE);
+        END IF;
+    END IF;
+END;
+/
+ALTER TRIGGER "TG_AUD_TYPE" ENABLE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
