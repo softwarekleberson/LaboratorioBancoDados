@@ -199,4 +199,4 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
     - As triggers de auditoria serão ativadas automaticamente em operações de UPDATE e DELETE, registrando as alterações nas tabelas de histórico e na tabela de auditoria.
 
 ## Conclusão
-Este projeto estabelece uma estrutura robusta para gerenciar e auditar dados no banco de dados Metflix. A implementação das triggers e procedures garante que todas as operações sejam registradas e que o histórico das mudanças seja mantido de forma detalhada.
+Este projeto estabelece uma estrutura robusta para gerenciar e auditar dados no banco de dados Netflix. A implementação das triggers e procedures garante que todas as operações sejam registradas e que o histórico das mudanças seja mantido de forma detalhada.
