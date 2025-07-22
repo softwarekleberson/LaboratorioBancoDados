@@ -1,13 +1,13 @@
-# Projeto de Auditoria e Banco de Dados Netflix
+# Netflix Database and Auditing Project
 
-## Visão Geral
-Este projeto envolve a criação de um sistema de auditoria e um banco de dados chamado Netflix. O objetivo é auditar operações de atualização e exclusão nas tabelas principais do banco de dados, além de armazenar informações detalhadas sobre shows, atores, diretores, países de produção, categorias e classificações. 
+## Overview
+This project involves the creation of an auditing system and a database called Netflix. The goal is to audit update and delete operations on the main database tables, as well as to store detailed information about shows, actors, directors, production countries, categories, and ratings.
 
-## Estrutura do Projeto
+## Project Structure
 
-### Arquivo `AUDITORIA.txt`
+### File `AUDITORIA.txt`
 
-1. **Criação do Usuário AUDITORIA**
+1. **Creating the AUDITORIA User**
     ```sql
     ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
 
@@ -19,12 +19,12 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
     GRANT CONNECT, RESOURCE TO AUDITORIA;
     ```
 
-2. **Criação da Sequência `SEQ_AUD`**
+2. **Creating the `SEQ_AUD` Sequence**
     ```sql
     CREATE SEQUENCE "SEQ_AUD" MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
     ```
 
-3. **Criação da Tabela de Auditoria `AUDITORIA`**
+3. **Creating the Audit Table `AUDITORIA`**
     ```sql
     CREATE TABLE "AUDITORIA" (
         "AUD_ID" NUMBER(6,0), 
@@ -40,7 +40,7 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
     );
     ```
 
-4. **Criação do Trigger `TG_SEQ_AUD`**
+4. **Creating the Trigger `TG_SEQ_AUD`**
     ```sql
     CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_SEQ_AUD" 
     BEFORE INSERT ON AUDITORIA
@@ -52,7 +52,7 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
     ALTER TRIGGER "TG_SEQ_AUD" ENABLE;
     ```
 
-5. **Criação do Procedimento `PROC_AUDITORIA`**
+5. **Creating the Procedure `PROC_AUDITORIA`**
     ```sql
     CREATE OR REPLACE NONEDITIONABLE PROCEDURE "PROC_AUDITORIA" (
         P_AUD_TABELA IN VARCHAR,
@@ -71,20 +71,20 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
     /
     ```
 
-6. **Concessão de Privilégios**
+6. **Granting Privileges**
     ```sql
     GRANT EXECUTE ON AUDITORIA.PROC_AUDITORIA TO app;
     ```
 
-### Arquivo `BancoCompleto.txt`
+### File `BancoCompleto.txt`
 
-1. **Criação de Sequências**
+1. **Creating Sequences**
     ```sql
     CREATE SEQUENCE "APP"."SEQ_CAS" MINVALUE 1 MAXVALUE 9999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE NOORDER NOCYCLE NOKEEP NOSCALE GLOBAL;
-    -- Sequências para outras tabelas: SEQ_COU, SEQ_DIR, SEQ_LIN, SEQ_RAT, SEQ_SHO, SEQ_TPE
+    -- Sequences for other tables: SEQ_COU, SEQ_DIR, SEQ_LIN, SEQ_RAT, SEQ_SHO, SEQ_TPE
     ```
 
-2. **Criação de Tabelas**
+2. **Creating Tables**
     ```sql
     CREATE TABLE "APP"."casting" ("cas_id" INTEGER, "cas_name" VARCHAR2(600));
     CREATE TABLE "APP"."countries" ("con_id" INTEGER, "con_name" VARCHAR2(600));
@@ -96,11 +96,11 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
         "sho_date_added" VARCHAR2(600), "sho_duration" VARCHAR2(600), 
         "sho_description" CLOB, "sho_tpe_id" INTEGER, "sho_rat_id" INTEGER
     );
-    -- Tabelas de relacionamento: shows_casting, shows_countries, shows_directors, shows_listed_in
+    -- Relationship tables: shows_casting, shows_countries, shows_directors, shows_listed_in
     CREATE TABLE "APP"."type" ("tpe_id" INTEGER, "tpe_type" VARCHAR2(10));
     ```
 
-3. **Criação de Triggers para Sequências**
+3. **Creating Sequence Triggers**
     ```sql
     CREATE OR REPLACE NONEDITIONABLE TRIGGER "APP"."TG_SEQ_CAS"
     BEFORE INSERT ON "casting"
@@ -110,17 +110,17 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
     END;
     /
     ALTER TRIGGER "APP"."TG_SEQ_CAS" ENABLE;
-    -- Triggers para outras tabelas: TG_SEQ_CON, TG_SEQ_DIR, TG_SEQ_LIN, TG_SEQ_RAT, TG_SEQ_SHO, TG_SEQ_TPE
+    -- Triggers for other tables: TG_SEQ_CON, TG_SEQ_DIR, TG_SEQ_LIN, TG_SEQ_RAT, TG_SEQ_SHO, TG_SEQ_TPE
     ```
 
-4. **Criação de Constraints**
+4. **Creating Constraints**
     ```sql
     ALTER TABLE "APP"."type" ADD CONSTRAINT "pk_tpe" PRIMARY KEY ("tpe_id") USING INDEX ENABLE;
     ALTER TABLE "APP"."type" ADD CONSTRAINT "CK_TPE_01" CHECK("tpe_type" IS NOT NULL) ENABLE;
-    -- Constraints para outras tabelas: shows, rating, listed_in, casting, countries, directors, shows_casting, shows_countries, shows_directors, shows_listed_in
+    -- Constraints for other tables: shows, rating, listed_in, casting, countries, directors, shows_casting, shows_countries, shows_directors, shows_listed_in
     ```
 
-5. **Procedimentos de Inserção**
+5. **Insertion Procedures**
     ```sql
     CREATE OR REPLACE PROCEDURE INSERIR_CASTING (p_cas_name "casting"."cas_name"%type) IS
         v_id integer;
@@ -135,10 +135,10 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
         COMMIT;
     END INSERIR_CASTING;
     /
-    -- Procedimentos para outras tabelas: INSERIR_COUNTRIES, INSERIR_DIRECTORS, INSERIR_LISTED, INSERIR_RATING, INSERIR_SHOWS, INSERIR_SHOWS_CASTING, INSERIR_SHOWS_COUNTRIES, INSERIR_SHOWS_DIRECTORS, INSERIR_SHOWS_LISTED, INSERIR_TYPES
+    -- Procedures for other tables: INSERIR_COUNTRIES, INSERIR_DIRECTORS, INSERIR_LISTED, INSERIR_RATING, INSERIR_SHOWS, INSERIR_SHOWS_CASTING, INSERIR_SHOWS_COUNTRIES, INSERIR_SHOWS_DIRECTORS, INSERIR_SHOWS_LISTED, INSERIR_TYPES
     ```
 
-6. **PL/SQL para Chamada das Procedures**
+6. **PL/SQL to Call Procedures**
     ```sql
     DECLARE
         CURSOR cur_CASTING IS SELECT CAST FROM METFLIX;
@@ -147,10 +147,10 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
             INSERIR_CASTING(linha_cur_CASTING.CAST);
         END LOOP;
     END;
-    -- PL/SQL para outras tabelas: TYPE, RATING, LISTED-IN, DIRECTORS, COUNTRIES, SHOWS, SHOWS_CASTING, SHOWS_COUNTRIES, SHOWS_DIRECTORS, SHOWS_LISTED_IN
+    -- PL/SQL for other tables: TYPE, RATING, LISTED-IN, DIRECTORS, COUNTRIES, SHOWS, SHOWS_CASTING, SHOWS_COUNTRIES, SHOWS_DIRECTORS, SHOWS_LISTED_IN
     ```
 
-7. **Criação de Tabela de Histórico**
+7. **Creating History Tables**
     ```sql
     CREATE TABLE h_casting (
         hcas_id INTEGER NOT NULL,
@@ -158,10 +158,10 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
         HCAS_DT_HIST DATE NOT NULL
     );
     ALTER TABLE h_casting ADD CONSTRAINT hcasting_pk PRIMARY KEY ( hcas_id, HCAS_DT_HIST);
-    -- Tabelas de histórico para outras tabelas: h_countries, h_directors, h_listed_in, h_rating, h_shows, h_type
+    -- History tables for: h_countries, h_directors, h_listed_in, h_rating, h_shows, h_type
     ```
 
-8. **Triggers para Auditoria**
+8. **Audit Triggers**
     ```sql
     CREATE OR REPLACE NONEDITIONABLE TRIGGER "TG_AUD_CASTING" 
     AFTER UPDATE OR DELETE ON H_CASTING
@@ -179,24 +179,29 @@ Este projeto envolve a criação de um sistema de auditoria e um banco de dados 
             V_TP_OPERACAO := 'D';
             AUDITORIA.PROC_AUDITORIA(V_TABELA, V_ROWID, V_TP_OPERACAO, NULL, NULL, NULL, V_USU_BD, V_USU_SO, SYSDATE);
         ELSE
-            V_TP
+            V_TP_OPERACAO := 'U';
+            -- Additional audit logic here
+        END IF;
+    END;
+    /
+    ```
 
-## Como Usar
+## How to Use
 
-1. **Criar o Usuário AUDITORIA**
-    - Execute o script SQL presente no início do arquivo `AUDITORIA.txt` para criar o usuário AUDITORIA e conceder os privilégios necessários.
+1. **Create the AUDITORIA User**
+    - Run the SQL script at the beginning of the `AUDITORIA.txt` file to create the AUDITORIA user and grant necessary privileges.
 
-2. **Criar Tabelas e Sequências**
-    - Execute os scripts SQL no arquivo `BancoCompleto.txt` para criar todas as tabelas, sequências e relacionamentos necessários.
+2. **Create Tables and Sequences**
+    - Run the SQL scripts in the `BancoCompleto.txt` file to create all required tables, sequences, and relationships.
 
-3. **Configurar Triggers e Procedures**
-    - Configure os triggers e procedures de auditoria e inserção conforme descrito nos arquivos. Esses scripts são responsáveis por manter o histórico de alterações e inserções de dados nas tabelas.
+3. **Configure Triggers and Procedures**
+    - Set up the audit and insertion triggers and procedures as described. These scripts are responsible for maintaining change history and data consistency.
 
-4. **Inserir Dados**
-    - Utilize os procedimentos de inserção para adicionar dados nas tabelas. Os procedimentos garantem que os dados sejam consistentes e que todas as tabelas relacionadas sejam atualizadas corretamente.
+4. **Insert Data**
+    - Use the insertion procedures to add data into the tables. The procedures ensure consistent data and proper updates to related tables.
 
-5. **Auditoria e Histórico**
-    - As triggers de auditoria serão ativadas automaticamente em operações de UPDATE e DELETE, registrando as alterações nas tabelas de histórico e na tabela de auditoria.
+5. **Auditing and History**
+    - The audit triggers will automatically activate on UPDATE and DELETE operations, recording changes in the history and audit tables.
 
-## Conclusão
-Este projeto estabelece uma estrutura robusta para gerenciar e auditar dados no banco de dados Netflix. A implementação das triggers e procedures garante que todas as operações sejam registradas e que o histórico das mudanças seja mantido de forma detalhada.
+## Conclusion
+This project establishes a robust structure for managing and auditing data in the Netflix database. The implementation of triggers and procedures ensures that all operations are tracked and a detailed history of changes is maintained.
